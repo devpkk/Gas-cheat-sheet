@@ -1,172 +1,195 @@
-# Google Apps Script Cheat Sheet #
+// !=== DIRECT -> QUICK-START
+// function setupQuickstart() {
+//     verifyFolderPath("qs");
+//     var data = "https://docs.google.com/spreadsheets/d/1QhfPg7Hkv2RMMpSQuh9lViVgL46nu1_Ta3b8gjG92sU/edit#gid=0";
+//     verifyCloneAtPath("qs/data", data);
+// }
 
-[General](#general-1)
-=====
-* [Array](#array)
-  * [Check Array for a Value](#check-array-for-a-value)
-  * [Remove Duplicates from Array](#remove-duplicates-from-array)
-  * [Remove Empty Elements from Array](#remove-empty-elements-from-array)
-  * [Count of Values in Array](#count-of-values-in-array)
-  * [Intersect of Two Arrays](#intersect-of-two-arrays)
-  * [Compare Two Arrays](#compare-two-arrays)
-  * [Array as Delimited String](#array-as-delimited-string)
-  * [Array as Modified Delimited String](#array-as-modified-delimited-string)
-* [Two Dimensional Array](#two-dimensional-array)
-  * [Flatten Two Dimensional Array](#flatten-two-dimensional-array)
-* [Array of Objects](#array-of-objects)
-  * [Sort Array of Objects by Property](#sort-array-of-objects-by-property)
-  * [Sort Array of Objects by Properties](#sort-array-of-objects-by-properties)
-  * [Find Object in Array of Objects](#find-object-in-array-of-objects)
-  * [Find First Object in Array of Objects by Timestamp](#find-first-object-in-array-of-objects-by-timestamp)
-  * [Find Last Object in Array of Objects by Timestamp](#find-last-object-in-array-of-objects-by-timestamp)
-  * [Filter Array of Objects by Value or Values](#filter-array-of-objects-by-value-or-values)
-  * [Unify Properties for Objects in Array of Objects](#unify-properties-for-objects-in-array-of-objects)
-* [Object](#object)
-  * [Array of Object Values](#array-of-object-values)
-  * [Merge Objects](#merge-objects)
-  * [Check for Valid Object](#check-for-valid-object)
-* [Dates and Times](#dates-and-times)
-  * [Formatted Date Time](#formatted-date-time)
-  * [Append Date Time](#append-date-time)
-  * [Date Object from String](#date-object-from-string)
-  * [Match a Date to a Date Range](#match-a-date-to-a-date-range)
-* [String](#string)
-  * [Check String for Substring](#check-string-for-substring)
-  * [Convert String to Snake Case](#convert-string-to-snake-case)
-* [Utility Functions for Drive](#utility-functions-for-drive)
-  * [Validate Path String](#validate-path-string)
-  * [Get Basename or Inverse Basename](#get-basename-or-inverse-basename)
-  * [Validate MIME Type](#validate-mime-type)
-  * [Match MIME Type ](#match-mime-type-)
-  * [MIME from URL](#mime-from-url)
-* [Folders](#folders)
-  * [Array of Folders](#array-of-folders)
-   * [Array of Folders at Root](#array-of-folders-at-root)
-   * [Array of Folders in Folder](#array-of-folders-in-folder)
-   * [Array of Folders at Path](#array-of-folders-at-path)
-   * [Array of Folders in Drive](#array-of-folders-in-drive)
-  * [Array of Folder Names](#array-of-folder-names)
-  * [Find a Folder](#find-a-folder)
-   * [Find Folder at Root](#find-folder-at-root)
-   * [Find Folder in Folder](#find-folder-in-folder)
-   * [Find Folder at Path](#find-folder-at-path)
-   * [Find Folder in Drive](#find-folder-in-drive)
-  * [Check for a Folder](#check-for-a-folder)
-   * [Check for Folder at Root](#check-for-folder-at-root)
-   * [Check for Folder in Folder](#check-for-folder-in-folder)
-   * [Check for Folder at Path](#check-for-folder-at-path)
-  * [Create a Folder](#create-a-folder)
-   * [Create Folder at Root](#create-folder-at-root)
-   * [Create Folder in Folder](#create-folder-in-folder)
-   * [Create Folder at Path](#create-folder-at-path)
-  * [Create Folders](#create-folders)
-   * [Create Folders at Root](#create-folders-at-root)
-   * [Create Folders in Folder](#create-folders-in-folder)
-   * [Create Folders at Path](#create-folders-at-path)
-  * [Verify Folder](#verify-folder)
-   * [Verify Folder at Root](#verify-folder-at-root)
-   * [Verify Folder in a Folder](#verify-folder-in-a-folder)
-   * [Verify Folder Path](#verify-folder-path)
-  * [Verify Folders](#verify-folders)
-   * [Verify Folders in a Folder](#verify-folders-in-a-folder)
-   * [Verify Folders at Root](#verify-folders-at-root)
-* [Files](#files)
-  * [Array of Files](#array-of-files)
-   * [Array of Files at Root](#array-of-files-at-root)
-   * [Array of Files in Folder](#array-of-files-in-folder)
-   * [Array of Files at Path](#array-of-files-at-path)
-   * [Array of All Files in Drive](#array-of-all-files-in-drive)
-  * [Array of File Names](#array-of-file-names)
-  * [Find a File](#find-a-file)
-   * [Find a File at Root](#find-a-file-at-root)
-   * [Find a File in a Folder](#find-a-file-in-a-folder)
-   * [Find File at Path](#find-file-at-path)
-   * [Find a File in Drive](#find-a-file-in-drive)
-  * [Check for a File](#check-for-a-file)
-   * [Check for a File at Root](#check-for-a-file-at-root)
-   * [Check for a File in a Folder](#check-for-a-file-in-a-folder)
-   * [Check for a File at Path](#check-for-a-file-at-path)
-  * [Create a File](#create-a-file)
-   * [Create File at Root](#create-file-at-root)
-   * [Create File in a Folder](#create-file-in-a-folder)
-   * [Create File at Path](#create-file-at-path)
-  * [Verify File](#verify-file)
-   * [Verify File at Root](#verify-file-at-root)
-   * [Verify File in Folder](#verify-file-in-folder)
-   * [Verify File Path](#verify-file-path)
-  * [Verify Clone](#verify-clone)
-   * [Verify Clone at Path](#verify-clone-at-path)
-  * [Id of Active File](#id-of-active-file)
-  * [Open File as Type](#open-file-as-type)
-  * [Copy a File to a Folder](#copy-a-file-to-a-folder)
-  * [Move a File to a Folder](#move-a-file-to-a-folder)
-* [Files and Folders](#files-and-folders)
-  * [Rename File or Folder](#rename-file-or-folder)
-  * [Parent Folder of a File or Folder](#parent-folder-of-a-file-or-folder)
-  * [Zip Files in Folder](#zip-files-in-folder)
-* [Utility Functions for Sheets](#utility-functions-for-sheets)
-  * [Convert Column Number to a Letter](#convert-column-number-to-a-letter)
-  * [Convert Column Letter to a Number](#convert-column-letter-to-a-number)
-  * [Replicating Import Range](#replicating-import-range)
-  * [Array of Sheet Names](#array-of-sheet-names)
-* [A1 Notation](#a1-notation)
-  * [A1 Object](#a1-object)
-  * [Validate A1](#validate-a1)
-* [Object](#object)
-  * [Object for Range ](#object-for-range-)
-* [Array of Objects](#array-of-objects)
-  * [Header Range](#header-range)
-  * [Value Range](#value-range)
-  * [Header Values](#header-values)
-  * [Array of Objects for Range](#array-of-objects-for-range)
-  * [Array of Objects for Sheet](#array-of-objects-for-sheet)
-  * [Array of Objects for A1 Notation](#array-of-objects-for-a1-notation)
-* [Array ](#array-)
-  * [Array of Values for Column](#array-of-values-for-column)
-   * [For Header Value](#for-header-value)
-   * [For Column Number](#for-column-number)
-   * [For Range Object ](#for-range-object-)
-* [Utility Functions for Docs](#utility-functions-for-docs)
-  * [Access Document Body](#access-document-body)
-  * [Clear Document Body](#clear-document-body)
-* [Sheets and Docs](#sheets-and-docs)
-  * [String From Object Properties ](#string-from-object-properties-)
-  * [Replace Object Properties ](#replace-object-properties-)
-   * [Replace Object Properties in Document](#replace-object-properties-in-document)
-   * [Replace Object Properties in Spreadsheet](#replace-object-properties-in-spreadsheet)
-   * [Replace Object Properties in Sheet](#replace-object-properties-in-sheet)
-  * [Copy Template for Item in Array of Objects and Replace Object Properties](#copy-template-for-item-in-array-of-objects-and-replace-object-properties)
-   * [Copy Document Template and Replace Object Properties](#copy-document-template-and-replace-object-properties)
-   * [Copy Spreadsheet Template and Replace Object Properties](#copy-spreadsheet-template-and-replace-object-properties)
-  * [Cell Shading](#cell-shading)
-   * [Index Object Properties](#index-object-properties)
-  * [Create Bulleted List in Document for Array of Objects](#create-bulleted-list-in-document-for-array-of-objects)
-   * [Single Division List](#single-division-list)
-   * [Multi Division List](#multi-division-list)
-* [Gmail](#gmail)
-  * [Mail Merge](#mail-merge)
-   * [Append Body Property for Object in Array of Objects ](#append-body-property-for-object-in-array-of-objects-)
-   * [Run Mail Merge for Array of Objects](#run-mail-merge-for-array-of-objects)
-* [Utility Functions for Forms](#utility-functions-for-forms)
-  * [Array of Form Items](#array-of-form-items)
-  * [Get Form Item By Name](#get-form-item-by-name)
-  * [Set Item Choices](#set-item-choices)
-  * [Get Destination Sheet](#get-destination-sheet)
-* [Responses](#responses)
-  * [Last Response as Object](#last-response-as-object)
-  * [Last Response as Array of Objects](#last-response-as-array-of-objects)
-  * [All Responses as Array of Objects](#all-responses-as-array-of-objects)
-  * [Object From URL](#object-from-url)
-  * [Object From File](#object-from-file)
-  * [Object From Source](#object-from-source)
+// function runQuickstart() {}
 
-## General ##
+// Logger.log('Start');
 
-### Array  ###
+// ===!
+// !=== DIRECT -> README
+// # Google Apps Script Cheat Sheet #
+// ===!
+// !=== NAV
+// |*| # General
+// |*| - Array
+// |*| -- Check Array for a Value
+// |*| -- Remove Duplicates from Array
+// |*| -- Remove Empty Elements from Array
+// |*| -- Count of Values in Array
+// |*| -- Intersect of Two Arrays
+// |*| -- Compare Two Arrays
+// |*| -- Array as Delimited String
+// |*| -- Array as Modified Delimited String
+// |*| - Two Dimensional Array
+// |*| -- Flatten Two Dimensional Array
+// |?| - Array of Objects
+// |*| -- Sort Array of Objects by Property
+// |*| -- Sort Array of Objects by Properties
+// |?| -- Find Object in Array of Objects
+// | | -- Find First Object in Array of Objects by Timestamp
+// | | -- Find Last Object in Array of Objects by Timestamp
+// |?| -- Filter Array of Objects by Value or Values
+// |?| -- Unify Properties for Objects in Array of Objects
+// |?| - Object
+// |?| -- Array of Object Values
+// |?| -- Merge Objects
+// |?| -- Check for Valid Object
+// |?| - Dates and Times
+// |?| -- Formatted Date Time
+// |?| -- Append Date Time
+// |?| -- Date Object from String
+// |?| -- Match a Date to a Date Range
+// |?| - String
+// |?| -- Check String for Substring
+// |?| -- Convert String to Snake Case
+// | | Drive
+// | | - Utility Functions for Drive
+// | | -- Validate Path String
+// |?| -- Get Basename or Inverse Basename
+// | | -- Validate MIME Type
+// | | -- Match MIME Type 
+// | | -- MIME from URL
+// | | - Folders
+// | | -- Array of Folders
+// | | --- Array of Folders at Root
+// | | --- Array of Folders in Folder
+// | | --- Array of Folders at Path
+// | | --- Array of Folders in Drive
+// | | -- Array of Folder Names
+// | | -- Find a Folder
+// | | --- Find Folder at Root
+// | | --- Find Folder in Folder
+// | | --- Find Folder at Path
+// | | --- Find Folder in Drive
+// | | -- Check for a Folder
+// | | --- Check for Folder at Root
+// | | --- Check for Folder in Folder
+// | | --- Check for Folder at Path
+// | | -- Create a Folder
+// | | --- Create Folder at Root
+// | | --- Create Folder in Folder
+// | | --- Create Folder at Path
+// | | -- Create Folders
+// | | --- Create Folders at Root
+// | | --- Create Folders in Folder
+// | | --- Create Folders at Path
+// | | -- Verify Folder
+// | | --- Verify Folder at Root
+// | | --- Verify Folder in a Folder
+// | | --- Verify Folder Path
+// | | -- Verify Folders
+// | | --- Verify Folders in a Folder
+// | | --- Verify Folders at Root
+// | | - Files
+// | | -- Array of Files
+// | | --- Array of Files at Root
+// | | --- Array of Files in Folder
+// | | --- Array of Files at Path
+// | | --- Array of All Files in Drive
+// | | -- Array of File Names
+// | | -- Find a File
+// | | --- Find a File at Root
+// | | --- Find a File in a Folder
+// | | --- Find File at Path
+// | | --- Find a File in Drive
+// | | -- Check for a File
+// | | --- Check for a File at Root
+// | | --- Check for a File in a Folder
+// | | --- Check for a File at Path
+// | | -- Create a File
+// | | --- Create File at Root
+// | | --- Create File in a Folder
+// | | --- Create File at Path
+// | | -- Verify File
+// | | --- Verify File at Root
+// | | --- Verify File in Folder
+// | | --- Verify File Path
+// | | -- Verify Clone
+// | | --- Verify Clone at Path
+// | | -- Id of Active File
+// | | -- Open File as Type
+// | | -- Copy a File to a Folder
+// | | -- Move a File to a Folder
+// | | - Files and Folders
+// | | -- Rename File or Folder
+// | | -- Parent Folder of a File or Folder
+// | | -- Zip Files in Folder
+// | | Sheets
+// | | - Utility Functions for Sheets
+// | | -- Convert Column Number to a Letter
+// | | -- Convert Column Letter to a Number
+// | | -- Replicating Import Range
+// | | -- Array of Sheet Names
+// | | - A1 Notation
+// | | -- A1 Object
+// | | -- Validate A1
+// | | - Object
+// | | -- Object for Range 
+// | | - Array of Objects
+// | | -- Header Range
+// | | -- Value Range
+// | | -- Header Values
+// | | -- Array of Objects for Range
+// | | -- Array of Objects for Sheet
+// | | -- Array of Objects for A1 Notation
+// | | - Array 
+// | | -- Array of Values for Column
+// | | --- For Header Value
+// | | --- For Column Number
+// | | --- For Range Object 
+// | | Docs
+// | | - Utility Functions for Docs
+// | | -- Access Document Body
+// | | -- Clear Document Body
+// | | Merges
+// | | - Sheets and Docs
+// | | -- String From Object Properties 
+// | | -- Replace Object Properties 
+// | | --- Replace Object Properties in Document
+// | | --- Replace Object Properties in Spreadsheet
+// | | --- Replace Object Properties in Sheet
+// | | -- Copy Template for Item in Array of Objects and Replace Object Properties
+// | | --- Copy Document Template and Replace Object Properties
+// | | --- Copy Spreadsheet Template and Replace Object Properties
+// | | -- Cell Shading
+// | | --- Index Object Properties
+// | | -- Create Bulleted List in Document for Array of Objects
+// | | --- Single Division List
+// | | --- Multi Division List
+// | | - Gmail
+// | | -- Mail Merge
+// | | --- Append Body Property for Object in Array of Objects 
+// | | --- Run Mail Merge for Array of Objects
+// | | Forms
+// | | - Utility Functions for Forms
+// | | -- Array of Form Items
+// | | -- Get Form Item By Name
+// | | -- Set Item Choices
+// | | -- Get Destination Sheet
+// | | - Responses
+// | | -- Last Response as Object
+// | | -- Last Response as Array of Objects
+// | | -- All Responses as Array of Objects
+// | | JSON
+// | | -- Object From URL
+// | | -- Object From File
+// | | -- Object From Source
+// ===!
+// !=== DIRECT README
+// 
+// ===!
+// !=== MAIN
 
-#### Check Array For a Value ####
+// # General
 
-```javascript
+// - Array 
+
+// -- Check Array For a Value
+
 /**
  * Returns true if the value is in the array.
  *
@@ -179,14 +202,12 @@ function checkArrayForValue(arr, val) {
     return arr.indexOf(val) > -1;
 }
 
-Logger.log('checkArrayForValue');
-var arr_cafv = [1, 2, 3, 4];
-Logger.log(checkArrayForValue(arr_cafv, 5)); // false 
-```
+// Logger.log('checkArrayForValue');
+// var arr_cafv = [1, 2, 3, 4];
+// Logger.log(checkArrayForValue(arr_cafv, 5)); // false //!EX
 
-#### Remove Duplicates from Array ####
+// -- Remove Duplicates from Array
 
-```javascript
 /**
  * Returns an array with no duplicate values.
  *
@@ -207,14 +228,12 @@ function removeDuplicatesFromArray(arr) {
     return result;
 }
 
-Logger.log('removeDuplicatesFromArray');
-var arr_rdfa = [1, 2, 3, 1, 2, 3, 4,];
-Logger.log(removeDuplicatesFromArray(arr_rdfa)); // [1, 2, 3, 4] 
-```
+// Logger.log('removeDuplicatesFromArray');
+// var arr_rdfa = [1, 2, 3, 1, 2, 3, 4,];
+// Logger.log(removeDuplicatesFromArray(arr_rdfa)); // [1, 2, 3, 4] //!EX
 
-#### Remove Empty Elements from Array ####
+// -- Remove Empty Elements from Array
 
-```javascript
 /**
  * Returns an array with no empty elements.
  *
@@ -232,14 +251,12 @@ function removeEmptyElementsFromArray(arr) {
     return result;
 }
 
-Logger.log('removeEmptyElementsFromArray');
-var arr_reefa = ['a',,'b',,,'c'];
-Logger.log(removeEmptyElementsFromArray(arr_reefa)); // ['a', 'b', 'c'] 
-```
+// Logger.log('removeEmptyElementsFromArray');
+// var arr_reefa = ['a',,'b',,,'c'];
+// Logger.log(removeEmptyElementsFromArray(arr_reefa)); // ['a', 'b', 'c'] //!EX
 
-#### Count of Values in Array ####
+// -- Count of Values in Array
 
-```javascript
 /**
  * Returns an array of objects. 
  * Objects in the array have two properties: count and value.
@@ -271,15 +288,13 @@ function countOfValuesInArray(arr) {
     return result;
 }
 
-Logger.log('countOfValuesInArray');
-var arr_covia = ['a', 'b', 'c', 'a', 'b', 'c', 'a'];
-Logger.log(countOfValuesInArray(arr_covia)); 
-// [{count=3.0, value=a}, {count=2.0, value=b}, {count=2.0, value=c}] 
-```
+// Logger.log('countOfValuesInArray');
+// var arr_covia = ['a', 'b', 'c', 'a', 'b', 'c', 'a'];
+// Logger.log(countOfValuesInArray(arr_covia)); 
+// [{count=3.0, value=a}, {count=2.0, value=b}, {count=2.0, value=c}] //!EX
 
-#### Intersect of Two Arrays ####
+// -- Intersect of Two Arrays
 
-```javascript
 /**
  * Returns an array containing the elements found in both arrays.
  *
@@ -306,15 +321,13 @@ function intersectOfTwoArrays(arrA, arrB) {
     return result;
 }
 
-Logger.log('intersectOfTwoArrays');
-var arrA_iota = [1, 2, 3];
-var arrB_iota = [3, 4, 5];
-Logger.log(intersectOfTwoArrays(arrA_iota, arrB_iota)); // [3] 
-```
+// Logger.log('intersectOfTwoArrays');
+// var arrA_iota = [1, 2, 3];
+// var arrB_iota = [3, 4, 5];
+// Logger.log(intersectOfTwoArrays(arrA_iota, arrB_iota)); // [3] //!EX
 
-#### Compare Two Arrays  ####
+// -- Compare Two Arrays 
 
-```javascript
 /**
  * Returns true if both arrays contain the same elements in the same order.
  *
@@ -336,17 +349,15 @@ function compareTwoArrays(arrA, arrB) {
     return true;
 }
 
-Logger.log('compareTwoArrays');
-var arrA_cta = [1, 2, 3, 4, 5];
-var arrB_cta = [1, 2, 3, 4, 5];
-var arrC_cta = [5, 4, 3, 2, 1];
-Logger.log(compareTwoArrays(arrA_cta, arrB_cta)); // true
-Logger.log(compareTwoArrays(arrA_cta, arrC_cta)); // false 
-```
+// Logger.log('compareTwoArrays');
+// var arrA_cta = [1, 2, 3, 4, 5];
+// var arrB_cta = [1, 2, 3, 4, 5];
+// var arrC_cta = [5, 4, 3, 2, 1];
+// Logger.log(compareTwoArrays(arrA_cta, arrB_cta)); // true
+// Logger.log(compareTwoArrays(arrA_cta, arrC_cta)); // false //!EX
 
-#### Array as Delimited String ####
+// -- Array as Delimited String
 
-```javascript
 /**
  * Returns a string of array values. 
  * Elements are separated by a delimiter and a space.
@@ -369,15 +380,13 @@ function arrayAsDelimitedString(arr, delim) {
     return result;
 }
 
-Logger.log('arrayAsDelimitedString');
-var arr_da = ['c@example.com', 'b@example.com', 'a@example.com'];
-Logger.log(arrayAsDelimitedString(arr_da, ',')); 
-// 'c@example.com, b@example.com, a@example.com' 
-```
+// Logger.log('arrayAsDelimitedString');
+// var arr_da = ['c@example.com', 'b@example.com', 'a@example.com'];
+// Logger.log(arrayAsDelimitedString(arr_da, ',')); 
+// 'c@example.com, b@example.com, a@example.com' //!EX
 
-#### Array as Modified Delimited String ####
+// -- Array as Modified Delimited String
 
-```javascript
 /**
  * Returns a string of array values.
  * Elements are separated by a delimiter and a space, each followed by a modification.
@@ -401,15 +410,13 @@ function arrayAsModifiedDelimitedString(arr, delim, mod) {
     return result;
 }
 
-Logger.log('arrayAsModifiedDelimitedString');
-var arr_aamds = ['x', 'z', 'y'];
-Logger.log(arrayAsModifiedDelimitedString(arr_aamds, ',', '@example.com'));
-// 'x@example.com, y@example.com, z@example.com' 
-```
+// Logger.log('arrayAsModifiedDelimitedString');
+// var arr_aamds = ['x', 'z', 'y'];
+// Logger.log(arrayAsModifiedDelimitedString(arr_aamds, ',', '@example.com'));
+// 'x@example.com, y@example.com, z@example.com' //!EX
 
-### Two Dimensional Array ###
+// - Two Dimensional Array
 
-```javascript
 /**
  * Returns an array containing all values in a two dimensional array.
  *
@@ -424,18 +431,16 @@ function flattenTwoDimensionalArray(arr) {
     return result;
 }
 
-Logger.log('flattenTwoDimensionalArray');
-var sheet_ftda = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
-var vals_ftda   = sheet_ftda.getRange('G2:H5').getValues();
-Logger.log(flattenTwoDimensionalArray(vals_ftda).sort()); 
-// [1, 2, 3, 4, 5, 6, 7, 8] 
-```
+// Logger.log('flattenTwoDimensionalArray');
+// var sheet_ftda = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
+// var vals_ftda   = sheet_ftda.getRange('G2:H5').getValues();
+// Logger.log(flattenTwoDimensionalArray(vals_ftda).sort()); 
+// [1, 2, 3, 4, 5, 6, 7, 8] //!EX
 
-### Array of Objects ###
+// - Array of Objects
 
-#### Sort Array of Objects by Property ####
+// -- Sort Array of Objects by Property
 
-```javascript
 /**
  * Returns an array of objects sorted by a single property value.
  *
@@ -455,7 +460,7 @@ function sortArrayOfObjects(prop) {
     };
 }
 
-Logger.log('sortArrayOfObjects');
+// Logger.log('sortArrayOfObjects');
 
 var saoo1_ao = [{
         a: 1000,
@@ -479,13 +484,11 @@ var saoo1_ao = [{
     }
 ];
 
-Logger.log(arrObj_ex.sort(sortArrayOfObjects('a')));
-// [{a=1.0, b=1.0, c=50.0}, {a=10.0, b=2.0, c=500.0}, {a=1000.0, b=1.0, c=5.0}, {a=10000.0, b=2.0, c=5000.0}] 
-```
+// Logger.log(arrObj_ex.sort(sortArrayOfObjects('a')));
+// [{a=1.0, b=1.0, c=50.0}, {a=10.0, b=2.0, c=500.0}, {a=1000.0, b=1.0, c=5.0}, {a=10000.0, b=2.0, c=5000.0}] //!EX
 
-#### Sort Array of Objects by Properties ####
+// -- Sort Array of Objects by Properties
 
-```javascript
 /**
  * Returns an array of objects sorted by multiple property values.
  * @requires sortArrayOfObjects() 
@@ -507,14 +510,12 @@ function sortArrayOfObjectsMulti() {
     };
 }
 
-Logger.log('sortArrayOfObjectsMulti');
-Logger.log(arrObj_ex.sort(sortArrayOfObjectsMulti('b', 'c'))); 
-// [{a=1000.0, b=1.0, c=5.0}, {a=1.0, b=1.0, c=50.0}, {a=10.0, b=2.0, c=500.0}, {a=10000.0, b=2.0, c=5000.0}] 
-```
+// Logger.log('sortArrayOfObjectsMulti');
+// Logger.log(arrObj_ex.sort(sortArrayOfObjectsMulti('b', 'c'))); 
+// [{a=1000.0, b=1.0, c=5.0}, {a=1.0, b=1.0, c=50.0}, {a=10.0, b=2.0, c=500.0}, {a=10000.0, b=2.0, c=5000.0}] //!EX
 
-#### Find Object in Array of Objects ####
+// -- Find Object in Array of Objects
 
-```javascript
 /**
  * Returns the first object in an array of objects with the key value pair.
  *
@@ -535,13 +536,11 @@ function findObjectInArrayOfObjects(arrObj, prop, val) {
     }
 }
 
-Logger.log("findObjectInArrayOfObjects");
-Logger.log(findObjectInArrayOfObjects(arrObj_ex, "a", 1000)); // {a=1000.0, b=1.0, c=5.0} 
-```
+// Logger.log("findObjectInArrayOfObjects");
+// Logger.log(findObjectInArrayOfObjects(arrObj_ex, "a", 1000)); // {a=1000.0, b=1.0, c=5.0} //!EX
 
-#### Find Oldest Object in Array of Objects ####
+// -- Find Oldest Object in Array of Objects
 
-```javascript
 /**
  * Returns the object with the oldest timestamp value.
  *
@@ -560,16 +559,14 @@ function findOldestObjectInArrayOfObjects(arr) {
     }
 }
 
-Logger.log("findOldestObjectInArrayOfObjects ");
-var sheet_ooiaoo  = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
-var arrObj_ooiaoo = arrayOfObjectsForA1("J1:K4", sheet_ooiaoo);
-Logger.log(oldestObjectInArrayOfObjects(arrObj_ooiaoo)); 
-// {Timestamp=Sun Feb 19 19:43:40 GMT-06:00 2017, Multiple Choice=A} 
-```
+// Logger.log("findOldestObjectInArrayOfObjects ");
+// var sheet_ooiaoo  = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
+// var arrObj_ooiaoo = arrayOfObjectsForA1("J1:K4", sheet_ooiaoo);
+// Logger.log(oldestObjectInArrayOfObjects(arrObj_ooiaoo)); 
+// {Timestamp=Sun Feb 19 19:43:40 GMT-06:00 2017, Multiple Choice=A} //!EX
 
-#### Find Latest Object in Array of Objects ####
+// -- Find Latest Object in Array of Objects
 
-```javascript
 /**
  * Returns the object with the most recent timestamp value.
  *
@@ -588,16 +585,14 @@ function findLatestObjectInArrayOfObjects(arrObj) {
     }
 }
 
-Logger.log("findLatestObjectInArrayOfObjects");
-var sheet_loiaoo  = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
-var arrObj_loiaoo = arrayOfObjectsForA1("J1:K4", sheet_loiaoo);
-Logger.log(findLatestObjectInArrayOfObjects(arrObj_loiaoo)); 
-// {Timestamp=Wed Feb 22 19:45:07 GMT-06:00 2017, Multiple Choice=C} 
-```
+// Logger.log("findLatestObjectInArrayOfObjects");
+// var sheet_loiaoo  = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
+// var arrObj_loiaoo = arrayOfObjectsForA1("J1:K4", sheet_loiaoo);
+// Logger.log(findLatestObjectInArrayOfObjects(arrObj_loiaoo)); 
+// {Timestamp=Wed Feb 22 19:45:07 GMT-06:00 2017, Multiple Choice=C} //!EX
 
-#### Filter Array of Objects by Value or Values ####
+// -- Filter Array of Objects by Value or Values
 
-```javascript
 /**
  * Returns an array of objects containing matching objects.
  *
@@ -624,14 +619,12 @@ function filterArrayOfObjects(arrObj, prop, vals) {
     return result;
 }
 
-Logger.log("filterArrayOfObjectsByValueOrValues");
-Logger.log(filterArrayOfObjectsByValueOrValues(arrObj_ex, "a", 10)); // [{a=10.0, b=2.0, c=500.0}]
-Logger.log(filterArrayOfObjectsByValueOrValues(arrObj_ex, "c", [5, 500])); // [{a=1000.0, b=1.0, c=5.0}, {a=10.0, b=2.0, c=500.0}] 
-```
+// Logger.log("filterArrayOfObjectsByValueOrValues");
+// Logger.log(filterArrayOfObjectsByValueOrValues(arrObj_ex, "a", 10)); // [{a=10.0, b=2.0, c=500.0}]
+// Logger.log(filterArrayOfObjectsByValueOrValues(arrObj_ex, "c", [5, 500])); // [{a=1000.0, b=1.0, c=5.0}, {a=10.0, b=2.0, c=500.0}] //!EX
 
-#### Unify Properties for Objects in Array of Objects ####
+// -- Unify Properties for Objects in Array of Objects
 
-```javascript
 /**
  * Returns an array of objects, with an additional property value added to each matching object.
  *
@@ -669,16 +662,14 @@ var arrObj_upfoiaoo = [{
     },
 ];
 
-Logger.log("unifyPropertiesForObjectsInArrayOfObjects");
-Logger.log(unifyPropertiesForObjectsInArrayOfObjects(arrObj_upfoiaoo, ["x","y","z"], "new"));
-// [{a=1.0, new=123.0, x=123.0}, {new=234.0, b=2.0, y=234.0}, {new=345.0, c=3.0, z=345.0}] 
-```
+// Logger.log("unifyPropertiesForObjectsInArrayOfObjects");
+// Logger.log(unifyPropertiesForObjectsInArrayOfObjects(arrObj_upfoiaoo, ["x","y","z"], "new"));
+// [{a=1.0, new=123.0, x=123.0}, {new=234.0, b=2.0, y=234.0}, {new=345.0, c=3.0, z=345.0}] //!EX
 
-### Object ###
+// - Object
 
-#### Array of Object Values ####
+// -- Array of Object Values
 
-```javascript
 /**
  * Returns an array of matching properties. 
  *
@@ -709,14 +700,12 @@ var obj_aoov = {
     c: 3
 };
 
-Logger.log("arrayOfObjectValues");
-var arr_aoov = ["a", "b", "d"];
-Logger.log(arrayOfObjectValues(obj_aoov, arr_aoov)); // [1, 2] 
-```
+// Logger.log("arrayOfObjectValues");
+// var arr_aoov = ["a", "b", "d"];
+// Logger.log(arrayOfObjectValues(obj_aoov, arr_aoov)); // [1, 2] //!EX
 
 // Merge Objects
 
-```javascript
 /**
  * Returns a single object with the values of multiple objects.
  * @param {...Object}
@@ -748,13 +737,11 @@ var objB_mo = {
     f: 7
 };
 
-Logger.log("mergeObjs");
-Logger.log(mergeObjs(objA_mo, objB_mo)); // {a=1.0, b=2.0, c=4.0, d=5.0, e=6.0, f=7.0} 
-```
+// Logger.log("mergeObjs");
+// Logger.log(mergeObjs(objA_mo, objB_mo)); // {a=1.0, b=2.0, c=4.0, d=5.0, e=6.0, f=7.0} //!EX
 
-#### Check for Valid Object ####
+// -- Check for Valid Object
 
-```javascript
 /**
  * Returns true if the object has at least one property value set.
  *
@@ -766,18 +753,16 @@ function checkForValidObject(obj) {
     return Object.keys(obj).length !== 0;
 }
 
-Logger.log("checkForValidObject");
-var obj_cfvo = {};
-Logger.log(checkForValidObject(obj_cfvo)); // false
+// Logger.log("checkForValidObject");
+// var obj_cfvo = {};
+// Logger.log(checkForValidObject(obj_cfvo)); // false
 // obj_cfvo = {a: 100};
-Logger.log(checkForValidObject(obj_cfvo)); // true 
-```
+// Logger.log(checkForValidObject(obj_cfvo)); // true //!EX
 
-### Dates and Times ###
+// - Dates and Times
 
-#### Formatted Date Time ####
+// -- Formatted Date Time
 
-```javascript
 /**
  * Returns a formatted date time string.
  * @returns {string}
@@ -797,13 +782,11 @@ function dateTime(opt) {
     return date.join("-") + " " + time.join(":") + " " + ampm;
 }
 
-Logger.log("dateTime");
-Logger.log(dateTime()); // 2018-3-7 7:05:07 PM 
-```
+// Logger.log("dateTime");
+// Logger.log(dateTime()); // 2018-3-7 7:05:07 PM //!EX
 
 // Append Date Time
 
-```javascript
 /**
  * appendDateTime
  *
@@ -816,13 +799,11 @@ function appendDateTime(str) {
     return str += " - " + dateTime();
 }
 
-Logger.log("appendDateTime");
-Logger.log(appendDateTime("file-name")); 
-```
+// Logger.log("appendDateTime");
+// Logger.log(appendDateTime("file-name")); //!EX
 
-#### Date Object from String ####
+// -- Date Object from String
 
-```javascript
 /**
  * Returns a new date object from a string formatted year-month-date. 
  *
@@ -838,13 +819,11 @@ function dateObjectFromString(str) {
     return new Date(months[(split[1] - 1)] + " " + split[2] + ", " + split[0]);
 }
 
-Logger.log("dateObjectFromString");
-Logger.log(dateObjectFromString("2017-04-24")); // Mon Apr 24 00:00:00 GMT-05:00 2017 
-```
+// Logger.log("dateObjectFromString");
+// Logger.log(dateObjectFromString("2017-04-24")); // Mon Apr 24 00:00:00 GMT-05:00 2017 //!EX
 
-#### Match a Date to a Range of Dates ####
+// -- Match a Date to a Range of Dates
 
-```javascript
 /**
  * Returns a value associated with a date range.
  *
@@ -897,16 +876,14 @@ var quarterDates = [{
     }
 ];
 
-Logger.log("matchDateToRangeOfDates");
-Logger.log(matchDateToRangeOfDates(quarterDates)); // 2 (12/21/2017)
-Logger.log(matchDateToRangeOfDates(quarterDates, "08/02/2017")); // 1 
-```
+// Logger.log("matchDateToRangeOfDates");
+// Logger.log(matchDateToRangeOfDates(quarterDates)); // 2 (12/21/2017)
+// Logger.log(matchDateToRangeOfDates(quarterDates, "08/02/2017")); // 1 //!EX
 
-### String ###
+// - String
 
-#### Check String for Substring ####
+// -- Check String for Substring
 
-```javascript
 /**
  * Returns true if the string contains the substring.
  *
@@ -923,15 +900,13 @@ function checkStringForSubstring(val, str) {
     }
 }
 
-Logger.log("checkStringForSubstring");
-var str_csfs = "google-apps-script-cheat-sheet-demo";
-var val_csfs = "google-apps-script"; 
-Logger.log(checkStringForSubstring(val_csfs, str_csfs)); // true 
-```
+// Logger.log("checkStringForSubstring");
+// var str_csfs = "google-apps-script-cheat-sheet-demo";
+// var val_csfs = "google-apps-script"; 
+// Logger.log(checkStringForSubstring(val_csfs, str_csfs)); // true //!EX
 
-#### Convert String to Snake Case ####
+// -- Convert String to Snake Case
 
-```javascript
 /**
  * Returns a string in snake case.
  *
@@ -943,18 +918,16 @@ function convertStringToSnakeCase(str) {
     return String(str).toLowerCase().replace(/ /g, '_');
 }
 
-Logger.log("convertStringToSnakeCase");
-var str_vsc = "Hello World"; 
-Logger.log(convertStringToSnakeCase(str_vsc)); // hello_world 
-```
+// Logger.log("convertStringToSnakeCase");
+// var str_vsc = "Hello World"; 
+// Logger.log(convertStringToSnakeCase(str_vsc)); // hello_world //!EX
 
 // Drive
 
-### Utility Functions for Drive ###
+// - Utility Functions for Drive
 
-#### Validate Path String ####
+// -- Validate Path String
 
-```javascript
 /**
  * Returns a string with leading or trailing forward slashes '/' removed.
  *
@@ -972,14 +945,12 @@ function validatePathString(path) {
     return path;
 }
 
-Logger.log("validatePathString");
-Logger.log(validatePathString("valid/path")); // "valid/path"
-Logger.log(validatePathString("/valid/path/")); // "valid/path" 
-```
+// Logger.log("validatePathString");
+// Logger.log(validatePathString("valid/path")); // "valid/path"
+// Logger.log(validatePathString("/valid/path/")); // "valid/path" //!EX
 
-#### Get Basename  ####
+// -- Get Basename 
 
-```javascript
 /**
  * Returns the basename from the end of a path.
  *
@@ -994,13 +965,11 @@ function getBasename(path) {
     return split.pop();
 }
 
-Logger.log("getBasename");
-Logger.log(getBasename("/a/b/c")); // c 
-```
+// Logger.log("getBasename");
+// Logger.log(getBasename("/a/b/c")); // c //!EX
 
-#### Get Inverse Basename ####
+// -- Get Inverse Basename
 
-```javascript
 /**
  * Returns a path, minus the basename.
  *
@@ -1016,13 +985,11 @@ function getInverseBasename(path) {
     return split.join("/");
 }
 
-Logger.log("getInverseBasename");
-Logger.log(getInverseBasename("/a/b/c")); // a/b 
-```
+// Logger.log("getInverseBasename");
+// Logger.log(getInverseBasename("/a/b/c")); // a/b //!EX
 
-#### Validate MIME Type ####
+// -- Validate MIME Type
 
-```javascript
 /**
  * Returns a full MIME type from a short or full MIME type..
  * @param {string} val
@@ -1052,15 +1019,13 @@ function validateMIME(val) {
     }
 }
 
-Logger.log("validateMIME");
-Logger.log(validateMIME("audio")); // application/vnd.google-apps.audio
-Logger.log(validateMIME("application/vnd.google-apps.spreadsheet")); // application/vnd.google-apps.spreadsheet
-Logger.log(validateMIME("this-type-doesnt-exist")); // false 
-```
+// Logger.log("validateMIME");
+// Logger.log(validateMIME("audio")); // application/vnd.google-apps.audio
+// Logger.log(validateMIME("application/vnd.google-apps.spreadsheet")); // application/vnd.google-apps.spreadsheet
+// Logger.log(validateMIME("this-type-doesnt-exist")); // false //!EX
 
-#### Match MIME Type ####
+// -- Match MIME Type
 
-```javascript
 /**
  * Returns true if the file's MIME type matches the given MIME type.
  *
@@ -1079,17 +1044,15 @@ function matchMIMEType(file, mime) {
     }
 }
 
-Logger.log("matchMIMEType");
-var file_mmt = findFileAtPath("google-apps-script-cheat-sheet-demo/files/example-document", "document");
-Logger.log(file_mmt);
-Logger.log(matchMIMEType(file_mmt, "document")); // true
-Logger.log(matchMIMEType(file_mmt, "application/vnd.google-apps.document")); // true
-Logger.log(matchMIMEType(file_mmt, "spreadsheet")); // false 
-```
+// Logger.log("matchMIMEType");
+// var file_mmt = findFileAtPath("google-apps-script-cheat-sheet-demo/files/example-document", "document");
+// Logger.log(file_mmt);
+// Logger.log(matchMIMEType(file_mmt, "document")); // true
+// Logger.log(matchMIMEType(file_mmt, "application/vnd.google-apps.document")); // true
+// Logger.log(matchMIMEType(file_mmt, "spreadsheet")); // false //!EX
 
-#### MIME from URL ####
+// -- MIME from URL
 
-```javascript
 /**
  * Flag: DOCUMENTATION HERE
  *
@@ -1117,13 +1080,12 @@ function mimeFromUrl(url) {
 
 }
 
-### Folders ###
+// - Folders
 
-#### Array of Folders  ####
+// -- Array of Folders 
 
-##### Array of Folders at Root #####
+// --- Array of Folders at Root
 
-```javascript
 /**
  * Returns an array of all folders found at root.
  * The array contains folder objects, not folder names.
@@ -1141,13 +1103,11 @@ function arrayOfFoldersAtRoot() {
     return result;
 }
 
-Logger.log("arrayOfFoldersAtRoot");
-Logger.log(arrayOfFoldersAtRoot()); 
-```
+// Logger.log("arrayOfFoldersAtRoot");
+// Logger.log(arrayOfFoldersAtRoot()); //!EX
 
-##### Array of Folders in Folder  #####
+// --- Array of Folders in Folder 
 
-```javascript
 /**
  * Returns an array of all folders found in a folder.
  * The array contains folder objects, not folder names.
@@ -1166,14 +1126,12 @@ function arrayOfFoldersInFolder(fldr) {
     return result;
 }
 
-Logger.log("arrayOfFoldersInFolder");
-var fldr_aofif = findFolderAtPath("google-apps-script-cheat-sheet-demo"); 
-Logger.log(arrayOfFoldersInFolder(fldr_aofif)); 
-```
+// Logger.log("arrayOfFoldersInFolder");
+// var fldr_aofif = findFolderAtPath("google-apps-script-cheat-sheet-demo"); 
+// Logger.log(arrayOfFoldersInFolder(fldr_aofif)); //!EX
 
-##### Array of Folders at Path #####
+// --- Array of Folders at Path
 
-```javascript
 /**
  * Returns an array of all folders found at the end of a folder path.
  * The array contains folder objects, not folder names.
@@ -1197,13 +1155,11 @@ function arrayOfFoldersAtPath(path) {
     }
 }
 
-Logger.log("arrayOfFoldersAtPath");
-Logger.log(arrayOfFoldersAtPath("google-apps-script-cheat-sheet-demo")); 
-```
+// Logger.log("arrayOfFoldersAtPath");
+// Logger.log(arrayOfFoldersAtPath("google-apps-script-cheat-sheet-demo")); //!EX
 
-##### Array of All Folders in Drive #####
+// --- Array of All Folders in Drive
 
-```javascript
 /**
  * Returns an array of all folders in Drive.
  * The array contains folder objects, not folder names.
@@ -1221,13 +1177,11 @@ function arrayOfFoldersInDrive() {
     return result;
 }
 
-Logger.log("arrayOfFoldersInDrive");
-Logger.log(arrayOfFoldersInDrive()); 
-```
+// Logger.log("arrayOfFoldersInDrive");
+// Logger.log(arrayOfFoldersInDrive()); //!EX
 
-#### Array of Folder Names ####
+// -- Array of Folder Names
 
-```javascript
 /**
  * Returns an array of folder names given an array of folders.
  *
@@ -1244,16 +1198,14 @@ function arrayOfFolderNames(arr) {
     return result;
 }
 
-Logger.log("arrayOfFolderNames");
-var arr_aofn  = arrayOfFoldersInFolder(findFolderAtPath("google-apps-script-cheat-sheet-demo/"));
-Logger.log(arrayOfFolderNames(arr_aofn)); 
-```
+// Logger.log("arrayOfFolderNames");
+// var arr_aofn  = arrayOfFoldersInFolder(findFolderAtPath("google-apps-script-cheat-sheet-demo/"));
+// Logger.log(arrayOfFolderNames(arr_aofn)); //!EX
 
-#### Find a Folder ####
+// -- Find a Folder
 
-##### Find Folder at Root #####
+// --- Find Folder at Root
 
-```javascript
 /**
  * Returns a folder from root.
  * Returns false if the folder doesn't exist.
@@ -1275,13 +1227,11 @@ function findFolderAtRoot(name) {
     }
 }
 
-Logger.log("findFolderAtRoot");
-Logger.log(findFolderAtRoot("google-apps-script-cheat-sheet-demo")); // google-apps-script-cheat-sheet-demo 
-```
+// Logger.log("findFolderAtRoot");
+// Logger.log(findFolderAtRoot("google-apps-script-cheat-sheet-demo")); // google-apps-script-cheat-sheet-demo //!EX
 
-##### Find Folder in Folder #####
+// --- Find Folder in Folder
 
-```javascript
 /**
  * Returns a folder from a folder.
  * Returns false if either folder doesn't exist.
@@ -1304,14 +1254,12 @@ function findFolderInFolder(name, fldr) {
     }
 }
 
-Logger.log("findFolderInFolder");
-var fldr_ffif = findFolderAtPath("google-apps-script-cheat-sheet-demo");
-Logger.log(findFolderInFolder("folders", fldr_ffif)); // folders 
-```
+// Logger.log("findFolderInFolder");
+// var fldr_ffif = findFolderAtPath("google-apps-script-cheat-sheet-demo");
+// Logger.log(findFolderInFolder("folders", fldr_ffif)); // folders //!EX
 
-#### Find Folder at Path ####
+// -- Find Folder at Path
 
-```javascript
 /**
  * Returns the folder found at the given path.
  * Returns false if the path is invalid or if the folder doesn't exist.
@@ -1353,13 +1301,11 @@ function findFolderAtPath(path) {
     }
 }
 
-Logger.log("findFolderAtPath");
-Logger.log(findFolderAtPath("google-apps-script-cheat-sheet-demo/folders")); // folders 
-```
+// Logger.log("findFolderAtPath");
+// Logger.log(findFolderAtPath("google-apps-script-cheat-sheet-demo/folders")); // folders //!EX
 
-##### Find a Folder in Drive #####
+// --- Find a Folder in Drive
 
-```javascript
 /**
  * Returns the first matching folder in Drive or false if no folder is found.
  *
@@ -1375,15 +1321,13 @@ function findFolderInDrive(name) {
     return false;
 }
 
-Logger.log("findFolderInDrive");
-Logger.log(findFolderInDrive("google-apps-script-cheat-sheet-demo")); // google-apps-script-cheat-sheet-demo 
-```
+// Logger.log("findFolderInDrive");
+// Logger.log(findFolderInDrive("google-apps-script-cheat-sheet-demo")); // google-apps-script-cheat-sheet-demo //!EX
 
-#### Check for a Folder ####
+// -- Check for a Folder
 
-##### Check for a Folder at Root #####
+// --- Check for a Folder at Root
 
-```javascript
 /**
  * Returns true if the folder is found. 
  *
@@ -1403,13 +1347,11 @@ function checkForFolderAtRoot(name) {
     }
 }
 
-Logger.log("checkForFolderAtRoot");
-Logger.log(checkForFolderAtRoot("google-apps-script-cheat-sheet-demo")); // true 
-```
+// Logger.log("checkForFolderAtRoot");
+// Logger.log(checkForFolderAtRoot("google-apps-script-cheat-sheet-demo")); // true //!EX
 
-##### Check for a Folder at Path #####
+// --- Check for a Folder at Path
 
-```javascript
 /**
  * Returns true if the folder is found.
  *
@@ -1430,16 +1372,14 @@ function checkForFolderAtPath(path) {
     }
 }
 
-Logger.log("checkForFolderAtPath");
-Logger.log(checkForFolderAtPath("google-apps-script-cheat-sheet-demo/folders")); // true
-Logger.log(checkForFolderAtPath("google-apps-script-cheat-sheet-demo/folders/1/10/100")); // false 
-```
+// Logger.log("checkForFolderAtPath");
+// Logger.log(checkForFolderAtPath("google-apps-script-cheat-sheet-demo/folders")); // true
+// Logger.log(checkForFolderAtPath("google-apps-script-cheat-sheet-demo/folders/1/10/100")); // false //!EX
 
-#### Create Folder ####
+// -- Create Folder
 
-##### Create Folder at Root #####
+// --- Create Folder at Root
 
-```javascript
 /**
  * Return a newly created folder.
  * This can create duplicate folders if used without caution.
@@ -1452,12 +1392,10 @@ function createFolderAtRoot(name) {
     return DriveApp.getRootFolder().createFolder(name);
 }
 
-Logger.log("createFolderAtRoot"); 
-```
+// Logger.log("createFolderAtRoot"); //!EX
 
-##### Create Folder in a Folder #####
+// --- Create Folder in a Folder
 
-```javascript
 /**
  * Return a newly created folder.
  * This can create duplicate folders if used without caution.
@@ -1471,15 +1409,13 @@ function createFolderInFolder(name, fldr) {
     return fldr.createFolder(name);
 }
 
-Logger.log("createFolderInFolder");
-var dt_cfif = dateTime();
-var fldr_cfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/bulk");
-Logger.log(createFolderInFolder(dt_cfif, fldr_cfif)); 
-```
+// Logger.log("createFolderInFolder");
+// var dt_cfif = dateTime();
+// var fldr_cfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/bulk");
+// Logger.log(createFolderInFolder(dt_cfif, fldr_cfif)); //!EX
 
-##### Create Folder at Path #####
+// --- Create Folder at Path
 
-```javascript
 /**
  * Creates a folder at the given path. 
  * Returns false if the supporting folders in the path are missing.
@@ -1503,17 +1439,15 @@ function createFolderAtPath(path) {
     return fldr.createFolder(basename);
 }
 
-Logger.log("createFolderAtPath");
-var dt_cfap = dateTime();
-Logger.log(createFolderAtPath("google-apps-script-cheat-sheet-demo/bulk/" + dt_cfap)); // 2017-12-16 13:34:38
-Logger.log(createFolderAtPath("no/path/here")); // false 
-```
+// Logger.log("createFolderAtPath");
+// var dt_cfap = dateTime();
+// Logger.log(createFolderAtPath("google-apps-script-cheat-sheet-demo/bulk/" + dt_cfap)); // 2017-12-16 13:34:38
+// Logger.log(createFolderAtPath("no/path/here")); // false //!EX
 
-#### Create Folders ####
+// -- Create Folders
 
-##### Create Folders at Root #####
+// --- Create Folders at Root
 
-```javascript
 /**
  * Returns the root folder. 
  * This can create duplicate folders if used without caution.
@@ -1529,12 +1463,10 @@ function createFoldersAtRoot(arr) {
     return DriveApp.getRootFolder();
 }
 
-Logger.log("createFoldersAtRoot"); 
-```
+// Logger.log("createFoldersAtRoot"); //!EX
 
-##### Create Folders in Folder #####
+// --- Create Folders in Folder
 
-```javascript
 /**
  * Returns the targeted folder.
  * This can create duplicate folders if used without caution.
@@ -1551,15 +1483,13 @@ function createFoldersInFolder(arr, fldr) {
     return fldr;
 }
 
-Logger.log("createFoldersInFolder");
-var fldr_cfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/bulk");
-var arr_cfif  = ["A", "B", "C"];
-Logger.log(createFoldersInFolder(arr_cfif, fldr_cfif)); // bulk 
-```
+// Logger.log("createFoldersInFolder");
+// var fldr_cfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/bulk");
+// var arr_cfif  = ["A", "B", "C"];
+// Logger.log(createFoldersInFolder(arr_cfif, fldr_cfif)); // bulk //!EX
 
-##### Create Folders at Path #####
+// --- Create Folders at Path
 
-```javascript
 /**
  * Returns the target folder.
  * This can create duplicate folders if used without caution.
@@ -1582,16 +1512,15 @@ function createFoldersAtPath(arr, path) {
     return fldr;
 }
 
-Logger.log("createFoldersAtPath");
-var fldr_cfap = verifyFolderPath("google-apps-script-cheat-sheet-demo/bulk");
-var arr_cfap  = ["X", "Y", "Z"];
-Logger.log(createFoldersAtPath(arr_cfap, "google-apps-script-cheat-sheet-demo/bulk")); // bulk
+// Logger.log("createFoldersAtPath");
+// var fldr_cfap = verifyFolderPath("google-apps-script-cheat-sheet-demo/bulk");
+// var arr_cfap  = ["X", "Y", "Z"];
+// Logger.log(createFoldersAtPath(arr_cfap, "google-apps-script-cheat-sheet-demo/bulk")); // bulk
 
-### Verify Folder ###
+// - Verify Folder
 
-##### Verify Folder at Root #####
+// --- Verify Folder at Root
 
-```javascript
 /**
  * Returns the targeted folder.
  * A new folder is created only if necessary; this will not create duplicate folders.
@@ -1615,12 +1544,11 @@ function verifyFolderAtRoot(name) {
     }
 }
 
-Logger.log("verifyFolderAtRoot");
-Logger.log(verifyFolderAtRoot("google-apps-script-cheat-sheet-demo")); // google-apps-script-cheat-sheet-demo
+// Logger.log("verifyFolderAtRoot");
+// Logger.log(verifyFolderAtRoot("google-apps-script-cheat-sheet-demo")); // google-apps-script-cheat-sheet-demo
 
-##### Verify Folder in Folder #####
+// --- Verify Folder in Folder
 
-```javascript
 /**
  * Returns the targeted folder.
  * A new folder is created only if necessary; this will not create duplicate folders.
@@ -1645,15 +1573,13 @@ function verifyFolderInFolder(name, fldr) {
     }
 }
 
-Logger.log("verifyFolderInFolder");
-var fldr_vfif = findFolderAtRoot("google-apps-script-cheat-sheet-demo"); 
-Logger.log(verifyFolderInFolder("folders", fldr_vfif)); // google-apps-script-cheat-sheet-demo/folders
+// Logger.log("verifyFolderInFolder");
+// var fldr_vfif = findFolderAtRoot("google-apps-script-cheat-sheet-demo"); 
+// Logger.log(verifyFolderInFolder("folders", fldr_vfif)); // google-apps-script-cheat-sheet-demo/folders
 
-##### Verify Folder Path #####
+// --- Verify Folder Path
 
-```javascript
 /**
-```javascript
 
  * Returns a folder at the end of a folder path.
  * Folders in the path are created if they don't already exist.
@@ -1687,14 +1613,13 @@ function verifyFolderPath(path) {
     return fldr;
 }
 
-Logger.log("verifyFolderPath");
-Logger.log(verifyFolderPath("google-apps-script-cheat-sheet-demo/folders")); // folders
+// Logger.log("verifyFolderPath");
+// Logger.log(verifyFolderPath("google-apps-script-cheat-sheet-demo/folders")); // folders
 
-#### Verify Folders ####
+// -- Verify Folders
 
-##### Verify Folders at Root #####
+// --- Verify Folders at Root
 
-```javascript
 /**
  * Returns the root folder.
  * Creates folders at root if they don't exist already.
@@ -1718,11 +1643,10 @@ function verifyFoldersAtRoot(arr) {
     return DriveApp.getRootFolder();
 }
 
-Logger.log("verifyFoldersAtRoot");
+// Logger.log("verifyFoldersAtRoot");
 
-##### Verify Folders in a Folder #####
+// --- Verify Folders in a Folder
 
-```javascript
 /**
  * Returns the targeted folder. 
  * Creates folders within a folder if they don't already exist.
@@ -1746,14 +1670,13 @@ function verifyFoldersInFolder(arr, fldr) {
     return fldr;
 }
 
-Logger.log("verifyFoldersInFolder");
-var fldr_vfsif = findFolderAtPath("google-apps-script-cheat-sheet-demo/folders");
-Logger.log(verifyFoldersInFolder(["X", "Y", "Z"], fldr_vfsif)); // folders
-Logger.log(arrayOfFoldersInFolder(fldr_vfsif)); 
+// Logger.log("verifyFoldersInFolder");
+// var fldr_vfsif = findFolderAtPath("google-apps-script-cheat-sheet-demo/folders");
+// Logger.log(verifyFoldersInFolder(["X", "Y", "Z"], fldr_vfsif)); // folders
+// Logger.log(arrayOfFoldersInFolder(fldr_vfsif)); 
 
-##### Verify Folders at Path #####
+// --- Verify Folders at Path
 
-```javascript
 /**
  * Returns the folder at the end of the target path or false if the given path is invalid.
  * Creates folders within a folder if they don't already exist.
@@ -1774,13 +1697,12 @@ function verifyFoldersAtPath(arr, path) {
     verifyFoldersInFolder(arr, fldr);
 }
 
-### Files ###
+// - Files
 
-#### Array of Files  ####
+// -- Array of Files 
 
-##### Array of Files at Root #####
+// --- Array of Files at Root
 
-```javascript
 /**
  * Returns an array containing all files found at root.
  *
@@ -1797,12 +1719,11 @@ function arrayOfFilesAtRoot() {
     return result;
 }
 
-Logger.log("arrayOfFilesAtRoot");
-Logger.log(arrayOfFilesAtRoot());
+// Logger.log("arrayOfFilesAtRoot");
+// Logger.log(arrayOfFilesAtRoot());
 
-##### Array of Files in Folder #####
+// --- Array of Files in Folder
 
-```javascript
 /**
  * Returns an array containing all files found at the top level of a folder.
  *
@@ -1820,13 +1741,12 @@ function arrayOfFilesInFolder(fldr) {
     return result;
 }
 
-Logger.log("arrayOfFilesInFolder");
-var fldr_fin = findFolderAtPath("google-apps-script-cheat-sheet-demo/files");
-Logger.log(arrayOfFilesInFolder(fldr_fin)); // [example-file, example-doc, example-spreadsheet];
+// Logger.log("arrayOfFilesInFolder");
+// var fldr_fin = findFolderAtPath("google-apps-script-cheat-sheet-demo/files");
+// Logger.log(arrayOfFilesInFolder(fldr_fin)); // [example-file, example-doc, example-spreadsheet];
 
-##### Array of Files at Path #####
+// --- Array of Files at Path
 
-```javascript
 /**
  * Returns an array containing all files found at the top level of a folder path.
  *
@@ -1849,12 +1769,11 @@ function arrayOfFilesAtPath(path) {
     }
 }
 
-Logger.log("arrayOfFilesAtPath");
-Logger.log(arrayOfFilesAtPath("google-apps-script-cheat-sheet-demo/files")); // example-spreadsheet...
+// Logger.log("arrayOfFilesAtPath");
+// Logger.log(arrayOfFilesAtPath("google-apps-script-cheat-sheet-demo/files")); // example-spreadsheet...
 
-##### Array of All Files in Drive #####
+// --- Array of All Files in Drive
 
-```javascript
 /**
  * Returns an array of all files in Drive..
  * Please don't actually use this in production. 
@@ -1872,12 +1791,11 @@ function arrayOfFilesInDrive() {
     return result;
 }
 
-Logger.log("arrayOfFilesInDrive");
-Logger.log(arrayOfFilesInDrive());
+// Logger.log("arrayOfFilesInDrive");
+// Logger.log(arrayOfFilesInDrive());
 
-#### Array of File Names  ####
+// -- Array of File Names 
 
-```javascript
 /**
  *  Returns an array of file names.
  *
@@ -1894,16 +1812,15 @@ function arrayOfFileNames(arr) {
     return result;
 }
 
-Logger.log("arrayOfFileNames");
-var fldr_aofilen = findFolderAtPath("google-apps-script-cheat-sheet-demo/files");
-var arr_aofilen  = arrayOfFilesInFolder(fldr_aofilen);
-Logger.log(arrayOfFileNames(arr_aofilen)); // [example-file]
+// Logger.log("arrayOfFileNames");
+// var fldr_aofilen = findFolderAtPath("google-apps-script-cheat-sheet-demo/files");
+// var arr_aofilen  = arrayOfFilesInFolder(fldr_aofilen);
+// Logger.log(arrayOfFileNames(arr_aofilen)); // [example-file]
 
-#### Find a File ####
+// -- Find a File
 
-##### Find a File at Root #####
+// --- Find a File at Root
 
-```javascript
 /**
  * Returns a file from root. 
  *
@@ -1946,9 +1863,8 @@ function findFileAtRoot(name, mime) {
     }
 }
 
-##### Find a File in a Folder #####
+// --- Find a File in a Folder
 
-```javascript
 /**
  * Returns a file from a folder.
  *
@@ -1997,15 +1913,14 @@ function findFileInFolder(name, fldr, mime) {
     }
 }
 
-Logger.log("findFileInFolder");
-var fldr_ffif = verifyFolderPath("google-apps-script-cheat-sheet-demo/sheets");
-Logger.log(findFileInFolder("example-sheet", fldr_ffif)); // example-sheet
-Logger.log(findFileInFolder("example-sheet", fldr_ffif, "document")); // false
-Logger.log(findFileInFolder("example-sheet", fldr_ffif, "spreadsheet")); // example-sheet
+// Logger.log("findFileInFolder");
+// var fldr_ffif = verifyFolderPath("google-apps-script-cheat-sheet-demo/sheets");
+// Logger.log(findFileInFolder("example-sheet", fldr_ffif)); // example-sheet
+// Logger.log(findFileInFolder("example-sheet", fldr_ffif, "document")); // false
+// Logger.log(findFileInFolder("example-sheet", fldr_ffif, "spreadsheet")); // example-sheet
 
-##### Find File at Path #####
+// --- Find File at Path
 
-```javascript
 /**
  * Returns a file from a path.
  * Returns false if the given path is incomplete.
@@ -2066,14 +1981,13 @@ function findFileAtPath(path, mime) {
     }
 }
 
-Logger.log("findFileAtPath");
-Logger.log(findFileAtPath("google-apps-script-cheat-sheet-demo/files/example-file")); // example-file
-Logger.log(findFileAtPath("google-apps-script-cheat-sheet-demo/files/example-spreadsheet", "spreadsheet")); // example-spreadsheet
-Logger.log(findFileAtPath("google-apps-script-cheat-sheet-demo/files/example-document", "document")); // false
+// Logger.log("findFileAtPath");
+// Logger.log(findFileAtPath("google-apps-script-cheat-sheet-demo/files/example-file")); // example-file
+// Logger.log(findFileAtPath("google-apps-script-cheat-sheet-demo/files/example-spreadsheet", "spreadsheet")); // example-spreadsheet
+// Logger.log(findFileAtPath("google-apps-script-cheat-sheet-demo/files/example-document", "document")); // false
 
-##### Find a File in Drive #####
+// --- Find a File in Drive
 
-```javascript
 /**
  * Returns a file from Drive.
  *
@@ -2111,14 +2025,13 @@ function findFileInDrive(name, mime) {
     }
 }
 
-Logger.log("findFileInDrive");
-Logger.log(findFileInDrive("example-file")); // example-file
+// Logger.log("findFileInDrive");
+// Logger.log(findFileInDrive("example-file")); // example-file
 
-#### Check for a File ####
+// -- Check for a File
 
-##### Check for a File at Root #####
+// --- Check for a File at Root
 
-```javascript
 /**
  * Returns true if a matching file is found.
  *
@@ -2141,11 +2054,10 @@ function checkForFileAtRoot(name, mime) {
     }
 }
 
-Logger.log("checkForFileAtRoot");
+// Logger.log("checkForFileAtRoot");
 
-##### Check for File in Folder #####
+// --- Check for File in Folder
 
-```javascript
 /**
  * Returns true if a matching file is found.
  *
@@ -2169,15 +2081,13 @@ function checkForFileInFolder(name, fldr, mime) {
     }
 }
 
-Logger.log("checkForFileInFolder");
-var fldr_cffif = verifyFolderPath("google-apps-script-cheat-sheet-demo/sheets"); 
-Logger.log(checkForFileInFolder("example-sheet", fldr_cffif, "spreadsheet")); // true
-Logger.log(checkForFileInFolder("example-sheet", fldr_cffif)); // true 
-```
+// Logger.log("checkForFileInFolder");
+// var fldr_cffif = verifyFolderPath("google-apps-script-cheat-sheet-demo/sheets"); 
+// Logger.log(checkForFileInFolder("example-sheet", fldr_cffif, "spreadsheet")); // true
+// Logger.log(checkForFileInFolder("example-sheet", fldr_cffif)); // true //!EX
 
 //  --- Check for File at Path
 
-```javascript
 /**
  * Returns true if a matching file is found.
  *
@@ -2206,15 +2116,14 @@ function checkForFileAtPath(path, mime) {
     }
 }
 
-Logger.log("checkForFileAtPath");
-Logger.log(checkForFileAtPath("google-apps-script-cheat-sheet-demo/sheets/example-sheet")); // true
-Logger.log(checkForFileAtPath("google-apps-script-cheat-sheet-demo/sheets/example-sheet", "spreadsheet")); // true
+// Logger.log("checkForFileAtPath");
+// Logger.log(checkForFileAtPath("google-apps-script-cheat-sheet-demo/sheets/example-sheet")); // true
+// Logger.log(checkForFileAtPath("google-apps-script-cheat-sheet-demo/sheets/example-sheet", "spreadsheet")); // true
 
 // Create a File
 
-##### Create File at Root #####
+// --- Create File at Root
 
-```javascript
 /**
  * Returns a newly created file.
  * This can create documents, forms, presentations or spreadsheets, 
@@ -2245,11 +2154,10 @@ function createFileAtRoot(name, mime) {
     }
 }
 
-Logger.log("createFileAtRoot");
+// Logger.log("createFileAtRoot");
 
-##### Create File in Folder #####
+// --- Create File in Folder
 
-```javascript
 /**
  * Returns a newly created file.
  * This can create documents, forms, presentations or spreadsheets, 
@@ -2273,13 +2181,12 @@ function createFileInFolder(name, fldr, mime) {
     return moveFileToFolder(file, fldr);
 }
 
-Logger.log("createFileInFolder");
-var fldr_cfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/files/create");
-Logger.log(createFileInFolder("example-spreadsheet", fldr_cfif, "spreadsheet")); // amazing-spreadsheet
+// Logger.log("createFileInFolder");
+// var fldr_cfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/files/create");
+// Logger.log(createFileInFolder("example-spreadsheet", fldr_cfif, "spreadsheet")); // amazing-spreadsheet
 
-##### Create File at Path #####
+// --- Create File at Path
 
-```javascript
 /**
  * Returns a newly created file.
  * This can create documents, forms, presentations or spreadsheets, 
@@ -2310,14 +2217,13 @@ function createFileAtPath(path, mime) {
     return createFileInFolder(name, fldr, mime);
 }
 
-Logger.log("createFileAtPath");
-Logger.log(createFileAtPath("google-apps-script-cheat-sheet-demo/bulk/example-spreadsheet", "spreadsheet")); // example-spreadsheet
+// Logger.log("createFileAtPath");
+// Logger.log(createFileAtPath("google-apps-script-cheat-sheet-demo/bulk/example-spreadsheet", "spreadsheet")); // example-spreadsheet
 
 // Verify File 
 
-##### Verify File at Root #####
+// --- Verify File at Root
 
-```javascript
 /**
  * Returns a file from root.
  * A matching file is either found or created.
@@ -2338,11 +2244,10 @@ function verifyFileAtRoot(name, mime) {
     }
 }
 
-Logger.log("verifyFileAtRoot");
+// Logger.log("verifyFileAtRoot");
 
-##### Verify File in Folder #####
+// --- Verify File in Folder
 
-```javascript
 /**
  * Returns a file from a folder.
  * A matching file is either found or created.
@@ -2364,13 +2269,12 @@ function verifyFileInFolder(name, fldr, mime) {
     }
 }
 
-Logger.log("verifyFileInFolder");
-var fldr_vfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/files"); 
-var file_vfif = verifyFileInFolder(fldr_vfif, "testing"); 
+// Logger.log("verifyFileInFolder");
+// var fldr_vfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/files"); 
+// var file_vfif = verifyFileInFolder(fldr_vfif, "testing"); 
 
-##### Verify File Path #####
+// --- Verify File Path
 
-```javascript
 /**
  * Returns a file from the end of a path.
  * A matching file is either found or created.
@@ -2408,13 +2312,12 @@ function verifyFilePath(path, mime) {
     }
 }
 
-Logger.log("verifyFilePath");
+// Logger.log("verifyFilePath");
 
-#### Verify Clone ####
+// -- Verify Clone
 
-##### Verify Clone at Path #####
+// --- Verify Clone at Path
 
-```javascript
 /**
  * Flag: DOCUMENTATION HERE
  *
@@ -2472,9 +2375,9 @@ function verifyCloneAtPath(path, url) {
     }
 }
 
-#### Id of Active File ####
 
-```javascript
+// -- Id of Active File
+
 /**
  * Returns the ID of the active file.
  *
@@ -2496,12 +2399,11 @@ function idOfActiveFile(mime) {
     }
 }
 
-Logger.log("idOfActiveFile");
-Logger.log(idOfActiveFile("spreadsheet");
+// Logger.log("idOfActiveFile");
+// Logger.log(idOfActiveFile("spreadsheet");
 
-#### Open File as Type ####
+// -- Open File as Type
 
-```javascript
 /**
  * Returns a file as a document object. 
  *
@@ -2526,13 +2428,12 @@ function openFileAsType(file, mime) {
     }
 }
 
-Logger.log("openFileAsType");
-var file_ofat = verifyFilePath("google-apps-script-cheat-sheet-demo/files/example-document", "document");
-Logger.log(openFileAsType(file_ofat, "document")); // Document
+// Logger.log("openFileAsType");
+// var file_ofat = verifyFilePath("google-apps-script-cheat-sheet-demo/files/example-document", "document");
+// Logger.log(openFileAsType(file_ofat, "document")); // Document
 
-#### Copy a File to a Folder ####
+// -- Copy a File to a Folder
 
-```javascript
 /**
  * Returns a file from it's new location.
  * This will not copy a file to a folder if a
@@ -2558,17 +2459,16 @@ function copyFileToFolder(file, fldr, mime) {
     return findFileInFolder(name, fldr);
 }
 
-Logger.log("copyFileToFolder");
-var fldr_cftf = verifyFolderPath("google-apps-script-cheat-sheet-demo/copy");
-var file_cftf = verifyFilePath("google-apps-script-cheat-sheet-demo/bulk/copy-example", "document"); 
-var doc_cftf = openFileAsType(file_cftf, "document");
-var body_cftf = doc_cftf.getBody().editAsText();
+// Logger.log("copyFileToFolder");
+// var fldr_cftf = verifyFolderPath("google-apps-script-cheat-sheet-demo/copy");
+// var file_cftf = verifyFilePath("google-apps-script-cheat-sheet-demo/bulk/copy-example", "document"); 
+// var doc_cftf = openFileAsType(file_cftf, "document");
+// var body_cftf = doc_cftf.getBody().editAsText();
 // body_cftf.insertText(0, 'copied document!\n');
-Logger.log(copyFileToFolder(file_cftf, fldr_cftf)); // copy-example
+// Logger.log(copyFileToFolder(file_cftf, fldr_cftf)); // copy-example
 
-#### Move a File to a Folder  ####
+// -- Move a File to a Folder 
 
-```javascript
 /**
  * Returns a file from it's new location. 
  * The original file is not deleted until the
@@ -2602,16 +2502,15 @@ function moveFileToFolder(file, fldr) {
     }
 }
 
-Logger.log("moveFileToFolder");
-var file_mftf = verifyFilePath("google-apps-script-cheat-sheet-demo/bulk/move-example", "spreadsheet");
-var fldr_mftf = verifyFolderPath("google-apps-script-cheat-sheet-demo/move");
-Logger.log(moveFileToFolder(file_mftf, fldr_mftf)); // move-example
+// Logger.log("moveFileToFolder");
+// var file_mftf = verifyFilePath("google-apps-script-cheat-sheet-demo/bulk/move-example", "spreadsheet");
+// var fldr_mftf = verifyFolderPath("google-apps-script-cheat-sheet-demo/move");
+// Logger.log(moveFileToFolder(file_mftf, fldr_mftf)); // move-example
 
-### Files and Folders ###
+// - Files and Folders
 
-#### Rename File or Folder ####
+// -- Rename File or Folder
 
-```javascript
 /**
  * Returns a renamed file or a folder.
  *
@@ -2625,15 +2524,14 @@ function renameFileOrFolder(file_fldr, name) {
     return file_fldr;
 }
 
-Logger.log("renameFileOrFolder");
-var file_rfof = verifyFilePath("google-apps-script-cheat-sheet-demo/bulk/spellling-eror");
-Logger.log(renameFileOrFolder(file_rfof, "spelling-error-fixed")); // modified-example-file
-var fldr_rfof = verifyFolderPath("google-apps-script-cheat-sheet-demo/bulk/spellling-eror");
-Logger.log(renameFileOrFolder(fldr_rfof, "spelling-error-fixed")); // modified-example-file
+// Logger.log("renameFileOrFolder");
+// var file_rfof = verifyFilePath("google-apps-script-cheat-sheet-demo/bulk/spellling-eror");
+// Logger.log(renameFileOrFolder(file_rfof, "spelling-error-fixed")); // modified-example-file
+// var fldr_rfof = verifyFolderPath("google-apps-script-cheat-sheet-demo/bulk/spellling-eror");
+// Logger.log(renameFileOrFolder(fldr_rfof, "spelling-error-fixed")); // modified-example-file
 
-#### Parent Folder of a File or Folder  ####
+// -- Parent Folder of a File or Folder 
 
-```javascript
 /**
  * Returns the parent folder or a file or a folder.
  *
@@ -2646,13 +2544,12 @@ function parentFolderOfFileOrFolder(file_fldr) {
     return fi.next();
 }
 
-Logger.log("parentFolderOfFileOrFolder");
-var file_pfofof = findFileInDrive("example-file");
-Logger.log(parentFolderOfFileOrFolder(file_pfofof)); // files
+// Logger.log("parentFolderOfFileOrFolder");
+// var file_pfofof = findFileInDrive("example-file");
+// Logger.log(parentFolderOfFileOrFolder(file_pfofof)); // files
 
-#### Zip Files in Folder ####
+// -- Zip Files in Folder
 
-```javascript
 /**
  * Returns a zipped file. 
  *
@@ -2674,8 +2571,11 @@ function zipFilesInFolder(target, name, fldr) {
     return findFileInFolder(name, fldr);
 }
 
-Logger.log("zipFilesInFolder");
-var fldr1_zfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/zip");
-var fldr2_zfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/zipped");
+// Logger.log("zipFilesInFolder");
+// var fldr1_zfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/zip");
+// var fldr2_zfif = verifyFolderPath("google-apps-script-cheat-sheet-demo/zipped");
 // zipFilesInFolder(fldr1_zfif, "Archive", fldr2_zfif);
 
+// !=== DIRECT -> QUICK-START
+// Logger.log('End');
+// ===!
