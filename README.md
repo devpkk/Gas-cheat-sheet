@@ -3,10 +3,10 @@
 [General](#general-1)
 =====
 * [Array](#array)
-  * [Check for a Value](#check-for-a-value)
-  * [Remove Duplicates](#remove-duplicates)
-  * [Remove Empty Elements](#remove-empty-elements)
-  * [Get Count of Values](#get-count-of-values)
+  * [Check Array For a Value](#check-array-for-a-value)
+  * [Remove Duplicates from Array](#remove-duplicates-from-array)
+  * [Remove Empty Elements from Array](#remove-empty-elements-from-array)
+  * [Get Count of Values in Array](#get-count-of-values-in-array)
   * [Intersect of Two Arrays](#intersect-of-two-arrays)
   * [Compare Two Arrays](#compare-two-arrays)
   * [Array as Delimited String](#array-as-delimited-string)
@@ -14,14 +14,14 @@
 * [Two-Dimensional Array](#two-dimensional-array)
   * [Flatten Two-Dimensional Array](#flatten-two-dimensional-array)
 * [Array of Objects](#array-of-objects)
-  * [Sort by Property or Properties](#sort-by-property-or-properties)
-  * [Find Object With Unique Property Value](#find-object-with-unique-property-value)
-  * [Find Earliest or Latest Object by Timestamp](#find-earliest-or-lastest-object-by-timestamp)
-  * [Filter by Property Value or Values](#filter-by-property-value-or-values)
-  * [Unify Properties for Array of Objects](#unify-properties-for-array-of-objects)
+  * [Sort Array of Objects by Property or Properties](#sort-array-of-objects-by-property-or-properties)
+  * [Find Object in Array of Objects](#find-object-in-array-of-objects)
+  * [Find First or Last Object in Array of Objects by Timestamp](#find-first-or-last-object-in-array-of-objects-by-timestamp)
+  * [Filter Array of Objects by Value or Values](#filter-array-of-objects-by-value-or-values)
+  * [Add Property to Objects in Array of Objects](#add-property-to-objects-in-array-of-objects)
 * [Object](#object)
-  * [Array of Matching Property Values](#array-of-matching-property-values--return-array)
-  * [Merge Objects](#merge-objects--return-object)
+  * [Array of Object Values](#array-of-object-values)
+  * [Merge Objects](#merge-objects)
 * [Dates and Times](#dates-and-times)
   * [Formatted Timestamps](#formatted-timestamps--return-string)
   * [Date Object from String](#date-object-from-string--return-date)
@@ -30,31 +30,32 @@
 [Drive](#drive-1)
 =====
 * [Folders](#folders)
-  * [Create or Verify Folder Path](#create-or-verify-folder-path)
+  * [Verify Folder Path](#verify-folder-path)
   * [Last Folder in Folder Path](#last-folder-in-folder-path)
-  * [Array of All Folders](#array-of-all-folders)
-    * [All Folders in a Folder](#all-folders-in-a-folder)
-    * [All Folders at Root](#all-folders-at-root)
-    * [All Folders in Drive](#all-folders-in-drive)
-  * [Array of All Folder Names](#array-of-all-folder-names)
+  * [Array of Folders](#array-of-folders)
+    * [Array of Folders in a Folder](#array-of-folders-in-a-folder)
+    * [Array of Folders at Root](#array-of-folders-at-root)
+    * [Array of All Folders in Drive ](#array-of-all-folders-in-drive)
+  * [Array of Folder Names](#array-of-folder-names)
   * [Find a Folder](#find-a-folder)
     * [Find a Folder in a Folder](#find-a-folder)
     * [Find a Folder at Root](#find-a-folder-at-root)
     * [Find a Folder in Drive](#find-a-folder-in-drive)
-    * [Find a File at Path](#find-a-file-at-path)
+    * [Find Folder at Path](#find-folder-at-path)
   * [Create or Verify Folders](#create-or-verify-folders)
     * [Create or Verify Folders in a Folder](#create-or-verify-folders-in-a-folder)
     * [Create or Verify Folders at Root](#create-or-verify-folders-at-root)
 * [Files](#files)
-  * [Array of All Files](#array-of-all-files--return-array-files)
-    * [All Files in a Folder](#all-files-in-a-folder)
-    * [All Files at Root](#all-files-at-root)
-    * [All Files in Drive](#all-files-in-drive)
-  * [Array of All File Names](#array-of-all-file-names--return-array-strings)
-  * [Find a File](#find-a-file--return-file)
+  * [Array of Files](#array-of-files)
+    * [Array of Files in a Folder](#array-of-files-in-a-folder)
+    * [Array of Files at Root](#array-of-files-at-root)
+    * [Array of All Files in Drive](#array-of-all-files-in-drive)
+  * [Array of File Names](#array-of-file-names)
+  * [Find a File](#find-a-file)
     * [Find a File in a Folder](#find-a-file-in-a-folder)
     * [Find a File at Root](#find-a-file-at-root)
     * [Find a File in Drive](#find-a-file-in-drive)
+    * [Find File at Path](#find-file-at-path)
   * [Copy a File to a Folder](#copy-a-file-to-a-folder--return-file)
   * [Move a File to a Folder](#move-a-file-to-a-folder--return-file)
 * [Files and Folders](#files-and-folders)
@@ -135,7 +136,7 @@
 
 ### Array ###
 
-#### Check for a Value ####
+#### Check Array for a Value ####
 
 ```javascript
 /**
@@ -146,15 +147,15 @@
  * @returns {boolean}
  */
 
-function checkValIn(arr, val) { 
+function checkArrayForValue(arr, val) { 
   return arr.indexOf(val) > -1; 
 }
 
-var arr_cvi = [1, 2, 3, 4];
-Logger.log(checkValIn(arr_cvi, 5)); // false
+var arr_cafv = [1, 2, 3, 4];
+Logger.log(checkArrayForValue(arr_cafv, 5)); // false
 ```
 
-#### Remove Duplicates ####
+#### Remove Duplicates from Array ####
 
 ```javascript
 /**
@@ -164,25 +165,24 @@ Logger.log(checkValIn(arr_cvi, 5)); // false
  * @returns {Array}
  */
 
-function rmDuplicatesFrom(arr) {
-  var check  = {};
+function removeDuplicatesFromArray(arr) {
   var result = [];
-  var j = 0;
-  for(var i = 0; i < arr.length; i++) {
+  var check  = {};
+  for (var i = 0; i < arr.length; i++) {
     var item = arr[i];
-    if(check[item] !== 1) {
+    if (check[item] !== 1) {
       check[item] = 1;
-      result[j++] = item;
+      result.push(item);
     }
   }
   return result;
 }
 
-var arr_rdf = [1, 2, 3, 1, 2, 3, 4,];
-Logger.log(rmDuplicatesFrom(arr_rdf)); // [1, 2, 3, 4]
+var arr_rdfa = [1, 2, 3, 1, 2, 3, 4,];
+Logger.log(removeDuplicatesFromArray(arr_rdfa)); // [1, 2, 3, 4]
 ```
 
-#### Remove Empty Elements ####
+#### Remove Empty Elements from Array ####
 
 ```javascript
 /**
@@ -192,15 +192,15 @@ Logger.log(rmDuplicatesFrom(arr_rdf)); // [1, 2, 3, 4]
  * @returns {Array}
  */
 
-function rmEmptyEl(x) {
+function removeEmptyElementsFromArray(x) {
   return (x !== (undefined || ''));
 }
 
-var arr_rev = ["a",,"b",,,"c"];
-Logger.log(arr_rev.filter(rmEmptyEl)); // ["a", "b", "c"]
+var arr_reefa = ["a",,"b",,,"c"];
+Logger.log(arr_reefa.filter(removeEmptyElementsFromArray)); // ["a", "b", "c"]
 ```
 
-#### Get Count of Values #### 
+#### Get Count of Values in Array #### 
 
 ```javascript
 /**
@@ -212,9 +212,9 @@ Logger.log(arr_rev.filter(rmEmptyEl)); // ["a", "b", "c"]
  * @returns {Object[]}
  */
 
-function countOfValIn(arr) {
+function countOfValuesInArray(arr) {
   var result = [];
-  var copy = arr.slice(0);
+  var copy   = arr.slice(0);
   for (var i = 0; i < arr.length; i++) {
     var myCount = 0;  
     for (var w = 0; w < copy.length; w++) {
@@ -233,28 +233,28 @@ function countOfValIn(arr) {
   return result;
 }
 
-var arr_covi  = ["a", "b", "c", "a", "b", "c", "a"];
-Logger.log(countOfValIn(arr_covi)); // [{count=3.0, value=a}, {count=2.0, value=b}, {count=2.0, value=c}]
+var arr_covia  = ["a", "b", "c", "a", "b", "c", "a"];
+Logger.log(countOfValuesInArray(arr_covia)); // [{count=3.0, value=a}, {count=2.0, value=b}, {count=2.0, value=c}]
 ```
 
 #### Intersect of Two Arrays #### 
 
 ```javascript
 /**
- * Returns an array of the elements in both arrays.
+ * Returns an array containing the elements in both arrays.
  *
  * @param {Array} arrA
  * @param {Array} arrB
  * @returns {Array}
  */
 
-function intersectOf(arrA, arrB) {
-  var a = 0;
-  var b = 0;
+function intersectOfTwoArrays(arrA, arrB) {
   var result = [];
+  var a      = 0;
+  var b      = 0;
   while( a < arrA.length && b < arrB.length ) {
-    if (arrA[a] < arrB[b] ) { a++; }
-    else if (arrA[a] > arrB[b] ) { b++; }
+    if (arrA[a] < arrB[b]) a++;
+    else if (arrA[a] > arrB[b]) b++;
     else {
       result.push(arrA[a]);
       a++;
@@ -264,9 +264,9 @@ function intersectOf(arrA, arrB) {
   return result;
 }
 
-var arrA_io = [1, 2, 3];
-var arrB_io = [3, 4, 5];
-Logger.log(intersectOf(arrA_io, arrB_io)); // [3]
+var arrA_iota = [1, 2, 3];
+var arrB_iota = [3, 4, 5];
+Logger.log(intersectOfTwoArrays(arrA_iota, arrB_iota)); // [3]
 ```
 
 #### Compare Two Arrays #### 
@@ -280,7 +280,7 @@ Logger.log(intersectOf(arrA_io, arrB_io)); // [3]
  * @returns {boolean}
  */
 
-function compareArr(arrA, arrB) {
+function compareTwoArrays(arrA, arrB) {
   if(arrA.length !== arrB.length) return false;
   for(var i = arrA.length; i--;) {
     if(arrA[i] !== arrB[i]) return false;
@@ -288,11 +288,11 @@ function compareArr(arrA, arrB) {
   return true;
 }
 
-var arrA_ca = [1, 2, 3, 4, 5];
-var arrB_ca = [1, 2, 3, 4, 5];
-var arrC_ca = ["a", "b", "c", "d", "e"];
-Logger.log(compareArr(arrA_ca, arrB_ca)); // true
-Logger.log(compareArr(arrA_ca, arrC_ca)); // false
+var arrA_cta = [1, 2, 3, 4, 5];
+var arrB_cta = [1, 2, 3, 4, 5];
+var arrC_cta = ["a", "b", "c", "d", "e"];
+Logger.log(compareTwoArrays(arrA_cta, arrB_cta)); // true
+Logger.log(compareTwoArrays(arrA_cta, arrC_cta)); // false
 ```
 
 #### Array as Delimited String #### 
@@ -307,18 +307,18 @@ Logger.log(compareArr(arrA_ca, arrC_ca)); // false
  * @returns {string}
  */
 
-function delimStrFromArr(arr, delim) {
-  var _arr = rmDuplicatesFrom(arr).sort();
-  var result  = "";
-  for (var i = 0; i < _arr.length; i++) {
-    result += _arr[i] + delim + " ";
+function arrayAsDelimitedString(arr, delim) {
+  var result = "";
+  var temp   = removeDuplicatesFromArray(arr);
+  for (var i = 0; i < temp.length; i++) {
+    if (i < temp.length) result += temp[i] + delim + " ";
+    else if (i === temp.length) result += temp[i];
   }
-  result = result.slice(0, -2);
   return result;
 }
 
 var arr_da = ["c@example.com", "b@example.com", "a@example.com"];
-Logger.log(delimStrFromArr(arr_da, ",")); // "a@example.com, b@example.com, c@example.com"
+Logger.log(arrayAsDelimitedString(arr_da, ",", true)); // "c@example.com, b@example.com, a@example.com"
 ```
 
 #### Array as Modified Delimited String #### 
@@ -334,18 +334,18 @@ Logger.log(delimStrFromArr(arr_da, ",")); // "a@example.com, b@example.com, c@ex
  * @returns {string}
  */
 
-function delimStrFromArrMod(arr, delim, mod) {
-  var _arr = rmDuplicatesFrom(arr).sort();
-  var result  = "";
-  for (var i = 0; i < _arr.length; i++) {
-    result += _arr[i] + mod + delim + " "; 
+function arrayAsModifiedDelimitedString(arr, delim, mod) {
+  var result = "";
+  var temp   = removeDuplicatesFromArray(arr);
+  for (var i = 0; i < temp.length; i++) {
+    if (i < temp.length) result += temp[i] + mod + delim + " "; 
+    else if (i === temp.length) result += temp[i] + mod + delim;
   }
-  result = result.slice(0, -2);
   return result;
 }
 
-var arr_clfd = ["x", "z", "y"];
-Logger.log(delimStrFromArrMod(arr_clfd, ",", "@example.com")); // "x@example.com, y@example.com, z@example.com"
+var arr_aamds = ["x", "z", "y"];
+Logger.log(arrayAsModifiedDelimitedString(arr_aamds, ",", "@example.com")); // "x@example.com, y@example.com, z@example.com"
 ```
 
 ### Two-Dimensional Array ###
@@ -356,19 +356,19 @@ Logger.log(delimStrFromArrMod(arr_clfd, ",", "@example.com")); // "x@example.com
 /**
  * Returns an array containing all values in a two-dimensional array.
  *
- * @param {Array[]} twoDArr
+ * @param {Array[]} arr
  * @returns {Array} 
  */
 
-function flattenTwoDArr(twoDArr) {
-  var result = twoDArr.reduce(function(a, b) {
+function flattenTwoDimensionalArray(arr) {
+  var result = arr.reduce(function(a, b) {
     return a.concat(b);
   });
   return result;
 }
 
-var sheet_fma = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
-var val_fma   = sheet_fma.getRange("G2:H5").getValues();
+var sheet_ftma = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
+var val_fma    = sheet_fma.getRange("G2:H5").getValues();
 Logger.log(flattenTwoDArr(val_fma).sort()); // [1, 2, 3, 4, 5, 6, 7, 8]
 ```
 
@@ -383,7 +383,7 @@ var ex_arrObj = [
 ]
 ```
 
-#### Sort by Property or Properties ####
+#### Sort Array of Objects by Property or Properties ####
 
 ```javascript
 /**
@@ -393,7 +393,7 @@ var ex_arrObj = [
  * @returns {Object[]}
  */
 
-function dynSort(prop) {
+function sortArrayOfObjects(prop) {
   var sortOrder = 1;
   if(prop[0] === "-") {
     sortOrder = -1;
@@ -405,7 +405,7 @@ function dynSort(prop) {
   };
 }
 
-Logger.log(ex_arrObj.sort(dynSort("a"))); 
+Logger.log(ex_arrObj.sort(sortArrayOfObjects("a"))); 
 // [{a=1.0, b=1.0, c=50.0}, {a=10.0, b=2.0, c=500.0}, {a=1000.0, b=1.0, c=5.0}, {a=10000.0, b=2.0, c=5000.0}]
 
 /**
@@ -414,23 +414,23 @@ Logger.log(ex_arrObj.sort(dynSort("a")));
  * @returns {Object[]}
  */
 
-function dynSortM() {
+function sortArrayOfObjectsMulti() {
   var props = arguments;
   return function (obj1, obj2) {
     var i = 0, result = 0, numberOfProperties = props.length;
     while(result === 0 && i < numberOfProperties) {
-      result = dynSort(props[i])(obj1, obj2);
+      result = sortArrayOfObjects(props[i])(obj1, obj2);
       i++;
     }
     return result;
   };
 }
 
-Logger.log(ex_/rrObj.sort(dynSortM("b", "c"))); 
+Logger.log(ex_arrObj.sort(sortArrayOfObjectsMulti("b", "c"))); 
 // [{a=1000.0, b=1.0, c=5.0}, {a=1.0, b=1.0, c=50.0}, {a=10.0, b=2.0, c=500.0}, {a=10000.0, b=2.0, c=5000.0}]
 ```
 
-#### Find Object With Unique Property Value #### 
+#### Find Object in Array of Objects #### 
 
 ```javascript
 /**
@@ -439,47 +439,30 @@ Logger.log(ex_/rrObj.sort(dynSortM("b", "c")));
  * @param {Object[]} arrObj
  * @param {string} pQuery
  * @param {string} val
+ * @param {string} [pReturn]
  * @returns {Object}
  */
 
-function findObjIn(arrObj, pQuery, val) {
+function findObjectInArrayOfObjects(arrObj, pQuery, val, pReturn) {
   for (var i = 0; i < arrObj.length; i++) {
     var obj = arrObj[i];
     for (var prop in obj) {
       if (obj.hasOwnProperty(pQuery) && prop == pQuery && obj[prop] == val) {
-        return obj;
+        if (pReturn !== undefined) {
+          return obj[pReturn];
+        } else {
+          return obj;
+        }
       }
     }
   }
 }
 
-Logger.log(findObjIn(ex_arrObj,"a",1000)); // {a=1000.0, b=1.0, c=5.0}
-
-/**
- * Returns a value from the first matching object in the array.
- *
- * @param {Object[]} arrObj
- * @param {string} pQuery
- * @param {string} val
- * @param {string} pReturn
- * @returns {*}
- */
-
-function findObjValIn(arrObj, pQuery, val, pReturn) {
-  for (var i = 0; i < arrObj.length; i++) {
-    var obj = arrObj[i];
-    for (var prop in obj) {
-      if (obj.hasOwnProperty(pQuery) && prop == pQuery && obj[prop] == val) {
-        return obj[pReturn];
-      }
-    }
-  }
-}
-
-Logger.log(findObjValIn(ex_arrObj, "c", 500, "a")); // 10
+Logger.log(findObjectInArrayOfObjects(ex_arrObj, "a", 1000)); // {a=1000.0, b=1.0, c=5.0}
+Logger.log(findObjectInArrayOfObjects(ex_arrObj, "c", 500, "a")); // 10
 ```
 
-#### Find Earliest or Lastest Object by Timestamp #### 
+#### Find First or Last Object in Array of Objects by Timestamp #### 
 
 ```javascript
 /**
@@ -489,7 +472,7 @@ Logger.log(findObjValIn(ex_arrObj, "c", 500, "a")); // 10
  * @returns {Object}
  */
 
-function earliestTS(arrObj){
+function findFirstObjectByTimestampInArrayOfObjects(arrObj){
   if (arrObj.length >= 2) {
     var sorted = arrObj.sort(function(a,b){
       return new Date(a.Timestamp) - new Date(b.Timestamp);
@@ -502,7 +485,8 @@ function earliestTS(arrObj){
 
 var sheet_fe  = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
 var arrObj_fe = arrObjFromRange(sheet_fe, "J1:K4");
-Logger.log(earliestTS(arrObj_fe)); // {Timestamp=Sun Feb 19 19:43:40 GMT-06:00 2017, Multiple Choice=A}
+Logger.log(findFirstObjectByTimestampInArrayOfObjects(arrObj_fe)); 
+// {Timestamp=Sun Feb 19 19:43:40 GMT-06:00 2017, Multiple Choice=A}
 
 /**
  * Returns the object with the latest Timestamp value.
@@ -511,7 +495,7 @@ Logger.log(earliestTS(arrObj_fe)); // {Timestamp=Sun Feb 19 19:43:40 GMT-06:00 2
  * @returns {Object}
  */
 
-function latestTS(arrObj) {
+function findLastObjectByTimestampInArrayOfObjects(arrObj) {
   if (arrObj.length >= 2) {
     var sorted = arrObj.sort(function(a,b){
       return new Date(b.Timestamp) - new Date(a.Timestamp);
@@ -524,10 +508,11 @@ function latestTS(arrObj) {
 
 var sheet_le  = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Sheet1");
 var arrObj_le = arrObjFromRange(sheet_le, "J1:K4");
-Logger.log(latestTS(arrObj_le)); // {Timestamp=Wed Feb 22 19:45:07 GMT-06:00 2017, Multiple Choice=C}
+Logger.log(findLastObjectByTimestampInArrayOfObjects(arrObj_le)); 
+// {Timestamp=Wed Feb 22 19:45:07 GMT-06:00 2017, Multiple Choice=C}
 ```
 
-#### Filter by Property Value or Values #### 
+#### Filter Array of Objects by Value or Values #### 
 
 ```javascript
 /**
@@ -535,26 +520,32 @@ Logger.log(latestTS(arrObj_le)); // {Timestamp=Wed Feb 22 19:45:07 GMT-06:00 201
  *
  * @param {Object} arrObj
  * @param {string} pQuery
- * @param {string[]} arrVal
+ * @param {string || string[]} val
  * @returns {Object[]}
  */
 
-function filterObjIn(arrObj, pQuery, arrVal) {
+function filterArrayOfObjectsByValueOrValues(arrObj, pQuery, valOrValues) {
   var result = [];
-  for (var i = 0; i < arrVal.length; i++) {
-    var val = arrVal[i]; 
-    for (var j = 0; j < arrObj.length; j++) {
-      if (arrObj[j][pQuery] == val) result.push(arrObj[j]);
+  if (Array.isArray(valOrValues)) {
+    for (var i = 0; i < valOrValues.length; i++) {
+      var val = valOrValues[i]; 
+      for (var j = 0; j < arrObj.length; j++) {
+        if (arrObj[j][pQuery] == val) result.push(arrObj[j]);
+      }
+    } 
+  } else {
+    for (var k = 0; k < arrObj.length; k++) {
+      if (arrObj[k][pQuery] == valOrValues) result.push(arrObj[k]);
     }
-  } 
+  }
   return result;
 }
 
-Logger.log(filterObjIn(ex_arrObj, "a", [10])); // [{a=10.0, b=2.0, c=500.0}]
-Logger.log(filterObjIn(ex_arrObj, "c", [5, 500])); // [{a=1000.0, b=1.0, c=5.0}, {a=10.0, b=2.0, c=500.0}]
+Logger.log(filterArrayOfObjectsByValueOrValues(ex_arrObj, "a", 10)); // [{a=10.0, b=2.0, c=500.0}]
+Logger.log(filterArrayOfObjectsByValueOrValues(ex_arrObj, "c", [5, 500])); // [{a=1000.0, b=1.0, c=5.0}, {a=10.0, b=2.0, c=500.0}]
 ```
 
-#### Unify Properties for Array of Objects ####
+#### Add Property to Objects in Array of Objects ####
 
 ```javascript
 /**
@@ -566,7 +557,7 @@ Logger.log(filterObjIn(ex_arrObj, "c", [5, 500])); // [{a=1000.0, b=1.0, c=5.0},
  * @returns {Object[]}
  */
 
-function unifyPropForArrObj(arrObj, arrProp, newProp){
+function addPropertyToObjectsInArrayOfObjects(arrObj, arrProp, newProp){
   for (var i = 0; i < arrObj.length; i++){
     var obj = arrObj[i];
     for (var h = 0; h < arrProp.length; h++) {
@@ -586,27 +577,27 @@ var arrObj_upfao  = [
   {z: 345},
 ];
 
-Logger.log(unifyPropForArrObj(arrObj_upfao, ["x","y","z"], "new"));
+Logger.log(addPropertyToObjectsInArrayOfObjects(arrObj_upfao, ["x","y","z"], "new"));
 // [{new=123.0, x=123.0}, {new=234.0, y=234.0}, {new=345.0, z=345.0}]
 ```
 
 ### Object ###
 
-#### Array of Matching Property Values #### 
+#### Array of Object Values #### 
 
 ```javascript
 /**
  * Returns an array of matching properties. 
  *
- * @requires intersectOf() 
+ * @requires intersectOfTwoArrays() 
  * @param {Object} obj
  * @param {string[]} props
  * @returns {Array}
  */
 
-function filterValIn(obj, props) {
+function arrayOfObjectValues(obj, arrProp) {
   var result = [];
-  var keys   = intersectOf(Object.keys(obj), props);
+  var keys   = intersectOfTwoArrays(Object.keys(obj), arrProp);
   for (var i = 0; i < keys.length; i++) {
     var key = keys[i];
     for (var prop in obj) {
@@ -619,14 +610,14 @@ function filterValIn(obj, props) {
   return result;
 }
 
-var obj_fvi = { 
+var obj_aoov = { 
  a: 1, 
  b: 2, 
  c: 3
 };
 
-var arr_fvi = ["a", "b", "d"];
-Logger.log(filterValIn(obj_fvi, arr_fvi)); // [1, 2]
+var arr_aoov = ["a", "b", "d"];
+Logger.log(arrayOfObjectValues(obj_aoov, arr_aoov)); // [1, 2]
 ```
 
 #### Merge Objects #### 
@@ -640,14 +631,14 @@ Logger.log(filterValIn(obj_fvi, arr_fvi)); // [1, 2]
  */
 
 function mergeObjs() {
-  var obj = arguments[0];
+  var result = arguments[0];
   for (i = 1; i < arguments.length; i++) {
     var src = arguments[i]; 
     for (var key in src) {
-      if (src.hasOwnProperty(key)) obj[key] = src[key];
+      if (src.hasOwnProperty(key)) result[key] = src[key];
     }
   } 
-  return obj;
+  return result;
 } 
 
 var objA_mo = {
@@ -677,54 +668,68 @@ Logger.log(mergeObjs(objA_mo, objB_mo)); // {a=1.0, b=2.0, c=4.0, d=5.0, e=6.0, 
  * @returns {string}
  */
 
-function fmatD() {
-  var n = new Date();
-  var d = [ n.getMonth() + 1, n.getDate(), n.getYear() ];
-    return d.join("-");
+function timestampMMDDYYYY() {
+  var now  = new Date();
+  var date = [ now.getMonth() + 1, now.getDate(), now.getYear() ];
+  return date.join("-");
 }
 
-Logger.log(fmatD()); // "4-24-2017"
+Logger.log(timestampMMDDYYYY()); // "4-24-2017"
 
 /**
- * Returns a string of the current time formatted "hour:minute:second".
+ * Returns a string of today's date formatted "year-month-day".
  *
  * @returns {string}
  */
 
-function fmat24T(){
-  var n  = new Date();
-  var t = [ n.getHours(), n.getMinutes(), n.getSeconds() ];
+function timestampYYYYMMDD() {
+  var now  = new Date();
+  var date = [now.getYear(), now.getMonth() + 1, now.getDate()];
+  return date.join("-");
+} 
+
+Logger.log(timestampYYYYMMDD()); // 2017-09-29
+
+/**
+ * Returns a string of the current time formatted "24 hour:minute:second".
+ *
+ * @returns {string}
+ */
+
+function timestampHHMMSS(){
+  var now  = new Date();
+  var time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
     for ( var i = 1; i < 3; i++ ) {
-      if ( t[i] < 10 ) {
-        t[i] = "0" + t[i];
+      if ( time[i] < 10 ) {
+        time[i] = "0" + time[i];
       }
-      return t.join(":");
+      return time.join(":");
     }
 }
 
-Logger.log(fmat24T()); // "20:43:40"
+Logger.log(timestampHHMMSS()); // "20:43:40"
 
 /**
- * Returns a string of today's date and the current time formatted "month-day-year hour:minute:second AM/PM"
+ * Returns a string of today's date and the current time formatted "year-iday-year hour:minute:second AM/PM"
  *
  * @returns {string}
  */
 
-function fmat12DT() {
-  var n = new Date();
-  var d = [ n.getMonth() + 1, n.getDate(), n.getYear() ];
-    var t = [ n.getHours(), n.getMinutes(), n.getSeconds() ];
-    var s = ( t[0] < 12 ) ? "AM" : "PM";
-  t[0]  = ( t[0] <= 12 ) ? t[0] : t[0] - 12;
+function timestampYYYYMMDDHHMMSSAMPM() {
+  var now = new Date();
+  var date = [ now.getMonth() + 1, now.getDate(), now.getYear() ];
+  var time = [ now.getHours(), now.getMinutes(), now.getSeconds() ];
+  var ampm = ( time[0] < 12 ) ? "AM" : "PM";
+  time[0]  = ( time[0] <= 12 ) ? time[0] : time[0] - 12;
   for ( var i = 1; i < 3; i++ ) {
-    if ( t[i] < 10 ) {
-      t[i] = "0" + t[i];
+    if ( time[i] < 10 ) {
+      time[i] = "0" + time[i];
     }
   }
-  return d.join("/") + " " + t.join(":") + " " + s;
+  return date.join("-") + " " + time.join(":") + " " + ampm;
 }
 
-Logger.log(fmat12DT()); // "4-24-2017 8:43:40 PM"
+Logger.log(timestampYYYYMMDDHHMMSSAMPM()); // "4-24-2017 8:43:40 PM"
 ```
 
 #### Date Object from String ####
@@ -763,7 +768,7 @@ Logger.log(dateObjectFromString("2017-04-24")); // Mon Apr 24 00:00:00 GMT-05:00
  * @returns {*}
  */
 
-function matchDateRange(arrObj, optDate) {
+function matchDateToRangeOfDates(arrObj, optDate) {
   var date = new Date();
   if (optDate !== undefined) {
     date = new Date(optDate);
@@ -778,48 +783,50 @@ function matchDateRange(arrObj, optDate) {
 }
 
 var quarterDates = [
-  {start: "08/01/2016", end: "10/28/2016", value: 1},
-  {start: "11/02/2016", end: "01/09/2017", value: 2},
-  {start: "01/15/2017", end: "03/19/2017", value: 3},
-  {start: "03/21/2017", end: "06/15/2017", value: 4},
-  {start: "06/16/2017", end: "07/30/2017", value: "summer vacation"}
+  {start: "08/01/2017", end: "10/28/2017", value: 1},
+  {start: "11/02/2017", end: "01/09/2018", value: 2},
+  {start: "01/15/2018", end: "03/19/2018", value: 3},
+  {start: "03/21/2018", end: "06/15/2018", value: 4},
+  {start: "06/16/2018", end: "08/30/2018", value: "summer vacation"}
 ];
 
-Logger.log(matchDateRange(quarterDates)); // "summer vacation" (06/25/2017)
-Logger.log(matchDateRange(quarterDates, "08/02/2016")); // 1 
+Logger.log(matchDateToRangeOfDates(quarterDates)); // "summer vacation" (pretend that today is 06/25/2018)
+Logger.log(matchDateToRangeOfDates(quarterDates, "08/02/2017")); // 1 
 ```
 
 ## Drive ##
 
 ### Folders ###
 
-#### Create or Verify Folder Path ####
+#### Verify Folder Path ####
 
 ```javascript
-// -- Create or Verify Folder Path
-
 /**
+
  * Returns a folder at the end of a folder path.
- * The folder is created if it does not exist already.
+ * Folders in the path are created if they don't already exist.
  *
  * @param {string} path
  * @returns {Folder}
  */
 
-function createVerifyPath(path) {
-  var split = path.split('/');
+function verifyPath(path) {
+  if (path.charAt(0) === "/") {
+    path = path.substr(1);
+  }
+  var split = path.split("/");
   var fldr;
   for (i = 0; i < split.length; i++) {
     var fi = DriveApp.getRootFolder().getFoldersByName(split[i]);
     if (i === 0) {
-      if(!(fi.hasNext())) {
+      if (!(fi.hasNext())) {
         DriveApp.createFolder(split[i]);
         fi = DriveApp.getFoldersByName(split[i]);
       } 
       fldr = fi.next();
     } else if (i >= 1) {
       fi = fldr.getFoldersByName(split[i]);
-      if(!(fi.hasNext())) {
+      if (!(fi.hasNext())) {
         fldr.createFolder(split[i]);
         fi = DriveApp.getFoldersByName(split[i]);
       } 
@@ -829,46 +836,12 @@ function createVerifyPath(path) {
   return fldr;
 }
 
-Logger.log(createVerifyPath("google-apps-script-cheat-sheet-demo/folders/A/B/C")); // C
+Logger.log(verifyPath("google-apps-script-cheat-sheet-demo/folders/A/B/C")); // C
 ```
 
-#### Last Folder in Folder Path ####
+#### Array of Folders ####
 
-```javascript
-/**
- * Returns the last folder in a folder path.
- *
- * @param path
- * @returns {Folder}
- */
-
-function lastFolderIn(path) {
-  var fi;
-  var split = path.split('/');
-  var fldr;
-  for (i = 0; i < split.length; i++) {
-    if (i === 0) {
-      fi = DriveApp.getRootFolder().getFoldersByName(split[i]);
-      if (fi.hasNext()) {
-        fldr = fi.next();
-      } 
-    } else if (i >= 1) {
-        fi = fldr.getFoldersByName(split[i]);
-        if (fi.hasNext()) {
-          fldr = fi.next();
-        } 
-    }
-  } 
-  return fldr;
-}
-
-// Logger.log(lastFolderIn("google-apps-script-cheat-sheet-demo/folders/A/B")); // B
-// Logger.log(lastFolderIn("google-apps-script-cheat-sheet-demo/folders/A/B/C/D/E/F/G")); // C
-```
-
-#### Array of All Folders ####
-
-##### All Folders in a Folder #####
+##### Array of Folders in a Folder #####
 
 ```javascript
 /**
@@ -878,20 +851,20 @@ function lastFolderIn(path) {
  * @returns {Folder[]}
  */
 
-function foldersIn(fldr) {
-  var fi  = fldr.getFolders();
-  var arr = [];
+function arrayOfFoldersInFolder(fldr) {
+  var result = [];
+  var fi     = fldr.getFolders();
   while (fi.hasNext()) {
     var _fldr = fi.next();
-    arr.push(_fldr);
+    result.push(_fldr);
   } 
-  return arr;
+  return result;
 }
 
-Logger.log(foldersIn(lastFolderIn("google-apps-script-cheat-sheet-demo/folders/"))); // [A]
+Logger.log(arrayOfFoldersInFolder(findFolderAtPath("google-apps-script-cheat-sheet-demo/folders/"))); // [A]
 ```
 
-##### All Folders at Root #####
+##### Array of Folders at Root #####
 
 ```javascript
 /**
@@ -900,21 +873,20 @@ Logger.log(foldersIn(lastFolderIn("google-apps-script-cheat-sheet-demo/folders/"
  * @returns {Folder[]}
  */
 
-function rootFolders() {
-  var rf  = DriveApp.getRootFolder();
-  var fi  = rf.getFolders();
-  var arr = [];
+function arrayOfFoldersAtRoot() {
+  var result = [];
+  var fi     = DriveApp.getRootFolder().getFolders();
   while (fi.hasNext()) {
     var fldr = fi.next();
-    arr.push(fldr);
+    result.push(fldr);
   } 
-  return arr;
+  return result;
 }
 
-Logger.log(rootFolders());
+Logger.log(arrayOfFoldersAtRoot());
 ```
 
-##### All Folders in Drive #####
+##### Array of All Folders in Drive #####
 
 ```javascript
 /**
@@ -923,7 +895,7 @@ Logger.log(rootFolders());
  * @returns {Folder[]}
  */
 
-function allFolders() {
+function arrayOfFoldersInDrive() {
   var fi  = DriveApp.getFolders();
   var arr = [];
   while (fi.hasNext()) {
@@ -933,10 +905,10 @@ function allFolders() {
   return arr;
 }
 
-Logger.log(allFolders());
+Logger.log(arrayOfFoldersInDrive());
 ```
 
-#### Array of All Folder Names ####
+#### Array of Folder Names ####
 
 ```javascript
 /**
@@ -946,17 +918,17 @@ Logger.log(allFolders());
  * @returns {string[]}
  */
 
-function folderNames(fldrs) {
-  var arr = [];
-  for (var i = 0; i < fldrs.length; i++) {
-    var name = fldrs[i].getName();
-    arr.push(name);
+function arrayOfFolderNames(arr) {
+  var result = [];
+  for (var i = 0; i < arr.length; i++) {
+    var name = arr[i].getName();
+    result.push(name);
   }
-  return arr;
+  return result;
 }
 
-var arr_fn  = foldersIn(lastFolderIn("google-apps-script-cheat-sheet-demo/folders/A/B"));
-Logger.log(folderNames(arr_fn)); // [C]
+var arr_aofldrn  = arrayOfFoldersInFolder(findFolderAtPath("google-apps-script-cheat-sheet-demo/folders/A/B"));
+Logger.log(arrayOfFolderNames(arr_aofldrn)); // [C]
 ```
 
 #### Find a Folder ####
@@ -967,25 +939,25 @@ Logger.log(folderNames(arr_fn)); // [C]
 /**
  * Returns a folder.
  *
- * @requires foldersIn() 
- * @requires folderNames() 
- * @requires checkValIn()
+ * @requires arrayOfFoldersInFolder() 
+ * @requires arrayOfFolderNames() 
+ * @requires checkArrayForValue()
  * @param {Folder} fldr
  * @param {string} name
  * @returns {Folder}
  */
 
-function findFolderIn(fldr, name) {
-  var fldrs = foldersIn(fldr);
-  var names = folderNames(fldrs);
-  if (checkValIn(names, name)) {
-    var _fldr = fldr.getFoldersByName(name).next();
-    return _fldr;
+
+function findFolderInFolder(fldr, name) {
+  var fldrs = arrayOfFoldersInFolder(fldr);
+  var names = arrayOfFolderNames(fldrs);
+  if (checkArrayForValue(names, name)) {
+    return fldr.getFoldersByName(name).next();
   }
 }
 
-var fldr_ffi = lastFolderIn("google-apps-script-cheat-sheet-demo/folders");
-Logger.log(findFolderIn(fldr_ffi, "A")); // A
+var fldr_ffi = findFolderAtPath("google-apps-script-cheat-sheet-demo/folders");
+Logger.log(findFolderInFolder(fldr_ffi, "A")); // A
 ```
 
 ##### Find a Folder at Root #####
@@ -994,20 +966,18 @@ Logger.log(findFolderIn(fldr_ffi, "A")); // A
 /**
  * Returns a folder at the root of the user's Drive.
  *
- * @requires rootFolders()
- * @requires folderNames()
- * @requires checkValIn()
+ * @requires arrayOfFoldersAtRoot()
+ * @requires arrayOfFolderNames()
+ * @requires checkArrayForValue()
  * @param {string} name
  * @returns {Folder}
  */
 
 function findFolderAtRoot(name) {
-  var rf    = DriveApp.getRootFolder();
-  var fldrs = rootFolders();
-  var names = folderNames(fldrs);
-  if (checkValIn(names, name)) {
-    var fldr = rf.getFoldersByName(name).next();
-    return fldr;
+  var fldrs = arrayOfFoldersAtRoot();
+  var names = arrayOfFolderNames(fldrs);
+  if (checkArrayForValue(names, name)) {
+    return DriveApp.getRootFolder().getFoldersByName(name).next();
   }
 }
 
@@ -1027,12 +997,41 @@ Logger.log(findFolderAtRoot("google-apps-script-cheat-sheet-demo")); // google-a
 function findFolderInDrive(name) {
   var fi = DriveApp.getFoldersByName(name);
   while (fi.hasNext()){
-    var fldr = fi.next();
-    return fldr;
+    return fi.next();
   }
 }
 
 Logger.log(findFolderInDrive("folders")); // folders
+```
+
+#### Find Folder at Path ####
+
+```javascript
+function findFolderAtPath(path) {
+  if (path.charAt(0) === "/") {
+    path = path.substr(1);
+  }
+  var fi;
+  var split = path.split("/");
+  var fldr;
+  for (i = 0; i < split.length; i++) {
+    if (i === 0) {
+      fi = DriveApp.getRootFolder().getFoldersByName(split[i]);
+      if (fi.hasNext()) {
+        fldr = fi.next();
+      } 
+    } else if (i >= 1) {
+        fi = fldr.getFoldersByName(split[i]);
+        if (fi.hasNext()) {
+          fldr = fi.next();
+        } 
+    }
+  } 
+  return fldr;
+}
+
+Logger.log(findFolderAtPath("google-apps-script-cheat-sheet-demo/folders/A/B")); // B
+Logger.log(findFolderAtPath("google-apps-script-cheat-sheet-demo/folders/A/B/C/D/E/F/G")); // C
 ```
 
 #### Create or Verify Folders ####
@@ -1044,33 +1043,33 @@ Logger.log(findFolderInDrive("folders")); // folders
  * Returns a folder. 
  * Creates folders within a folder if they don't already exist.
  *
- * @requires foldersIn()
- * @requires folderNames()
- * @requires checkValIn()
+ * @requires arrayOfFoldersInFolder()
+ * @requires arrayOfFolderNames()
+ * @requires checkArrayForValue()
  * @param {Folder} fldr
  * @param {string[]} names
  * @returns {Folder}
  */
 
-function createVerifyFoldersIn(fldr, names) {
-  var fldrs  = foldersIn(fldr);
-  var _names = folderNames(fldrs);
-  for (i = 0; i < names.length; i++) {
-    if (!(checkValIn(_names, names[i]))) {
-      fldr.createFolder(names[i]);
+function createOrVerifyFoldersInFolder(fldr, arr) {
+  var fldrs = arrayOfFoldersInFolder(fldr);
+  var names = arrayOfFolderNames(fldrs);
+  for (i = 0; i < arr.length; i++) {
+    if (!(checkArrayForValue(names, arr[i]))) {
+      fldr.createFolder(arr[i]);
     }
   }
   return fldr;
 }
 
-var fldr_cvfi = lastFolderIn("google-apps-script-cheat-sheet-demo/folders");
-Logger.log(createVerifyFoldersIn(fldr_cvfi, ["X", "Y", "Z"])); // folders
-Logger.log(foldersIn(fldr_cvfi)); // [A,X,Y,Z]
+var fldr_covfif = findFolderAtPath("google-apps-script-cheat-sheet-demo/folders");
+Logger.log(createOrVerifyFoldersInFolder(fldr_covfif, ["X", "Y", "Z"])); // folders
+Logger.log(arrayOfFoldersInFolder(fldr_covfif)); // [A, X, Y, Z]
 ```
 
 ##### Create or Verify Folders at Root #####
 
-```javascipt
+```javascript
 /**
  * Returns the root folder.
  * Creates folders at root if they don't exist already.
@@ -1079,12 +1078,12 @@ Logger.log(foldersIn(fldr_cvfi)); // [A,X,Y,Z]
  * @returns {Folder}
  */
 
-function createVerifyFoldersAtRoot(names) {
-  var rfs    = rootFolders();
-  var _names = folderNames(rfs);
-  for (i=0; i < names.length; i++) {
-    if (!(checkValIn(_names, names[i]))) {
-      DriveApp.createFolder(names[i]);
+function createOrVerifyFoldersAtRoot(arr) {
+  var rfs   = arrayOfRootFolders();
+  var names = arrayOfFolderNames(rfs);
+  for (i = 0; i < arr.length; i++) {
+    if (!(checkArrayForValue(names, arr[i]))) {
+      DriveApp.createFolder(arr[i]);
     }
   } 
   return DriveApp.getRootFolder();
@@ -1093,11 +1092,13 @@ function createVerifyFoldersAtRoot(names) {
 
 ### Files ###
 
-#### Array of All Files ####
+#### Array of Files ####
 
-##### All Files in a Folder ##### 
+##### Array of Files in a Folder ##### 
 
 ```javascript
+// --- Array of Files in a Folder
+
 /**
  * Returns an array of files found at the top level of a folder.
  *
@@ -1105,66 +1106,68 @@ function createVerifyFoldersAtRoot(names) {
  * @returns {File[]}
  */
 
-function filesIn(fldr) {
-  var fi  = fldr.getFiles();
-  var arr = [];
+function arrayOfFilesInFolder(fldr) {
+  var result = [];
+  var fi     = fldr.getFiles();
   while (fi.hasNext()) {
     var file = fi.next();
-    arr.push(file);
+    result.push(file);
   } 
-  return arr;
+  return result;
 }
 
-var fldr_fin = lastFolderIn("google-apps-script-cheat-sheet-demo/files");
-Logger.log(filesIn(fldr_fin)); // [example-file]
+var fldr_fin = findFolderAtPath("google-apps-script-cheat-sheet-demo/files");
+Logger.log(arrayOfFilesInFolder(fldr_fin)); // [example-file]
 ```
 
-##### All Files at Root ##### 
+##### Array of Files at Root ##### 
 
 ```javascript
 /**
  * Returns an array of all files at the root of a user's Drive.
+ * Note: Please don't actually use this in production. 
  *
  * @returns {File[]}
  */
 
-function rootFiles() {
-  var rf = DriveApp.getRootFolder();
-  var fi = rf.getFiles();
-  var arr = [];
+function arrayOfFilesAtRoot() {
+  var result = [];
+  var rf     = DriveApp.getRootFolder();
+  var fi     = rf.getFiles();
   while (fi.hasNext()) {
     var file = fi.next();
-    arr.push(file);
+    result.push(file);
   } 
-  return arr;
+  return result;
 }
 
-Logger.log(rootFiles());
+Logger.log(arrayOfFilesAtRoot());
 ```
 
-##### All Files in Drive ##### 
+##### Array of All Files in Drive ##### 
 
 ```javascript
 /**
  * Returns an array of all files in the user's Drive.
+ * Note: Please don't actually use this in production. 
  *
  * @returns {File[]}
  */
 
-function allFiles() {
-  var fi = DriveApp.getFiles();
-  var arr  = [];
+function arrayOfFilesInDrive() {
+  var result = [];
+  var fi     = DriveApp.getFiles();
   while (fi.hasNext()) {
     var file = fi.next();
-    arr.push(file);
+    result.push(file);
   } 
-  return arr;
+  return result;
 }
 
-Logger.log(allFiles());
+Logger.log(arrayOfFilesInDrive());
 ```
 
-#### Array of All File Names ####
+#### Array of File Names ####
 
 ```javascript
 /**
@@ -1174,18 +1177,18 @@ Logger.log(allFiles());
  * @returns {string[]}
  */
 
-function fileNames(files) {
-  var arr = [];
-  for (var i = 0; i < files.length; i++) {
-    var name = files[i].getName();
-    arr.push(name);
+function arrayOfFileNames(arr) {
+  var result = [];
+  for (var i = 0; i < arr.length; i++) {
+    var name = arr[i].getName();
+    result.push(name);
   }
-  return arr;
+  return result;
 }
 
-var fldr_fnam = lastFolderIn("google-apps-script-cheat-sheet-demo/files");
-var arr_fnam  = filesIn(fldr_fnam);
-Logger.log(fileNames(arr_fnam)); // [example-file]
+var fldr_aofilen = findFolderAtPath("google-apps-script-cheat-sheet-demo/files");
+var arr_aofilen  = arrayOfFilesInFolder(fldr_aofilen);
+Logger.log(arrayOfFileNames(arr_aofilen)); // [example-file]
 ```
 
 #### Find a File ####
@@ -1262,32 +1265,33 @@ function findFileInDrive(name) {
 Logger.log(findFileInDrive("example-file")); // example-file
 ```
 
-#### Find at File at Path ####
+#### Find File at Path ####
 
 ```javascript
-
 /**
- * Returns the file found at the end of a path.
+ * Returns the file at the end of a path.
  *
  * @param {string} path
  * @returns {File}
  */
 
 function findFileAtPath(path) {
-  var fi;
-  var split = path.split('/');
-  var file  = split[split.length -1];
-  var fldr;
-  for (i = 0; i < split.length - 1; i++) {
+  if (path.charAt(0) === "/") {
+    path = path.substr(1);
+  }
+  var arr  = path.split("/");
+  var file = arr[arr.length -1];
+  var fldr, fi;
+  for (i = 0; i < arr.length - 1; i++) {
     if (i === 0) {
-      fi = DriveApp.getRootFolder().getFoldersByName(split[i]);
+      fi = DriveApp.getRootFolder().getFoldersByName(arr[i]);
       if (fi.hasNext()) {
         fldr = fi.next();
       } else { 
         return null;
       }
     } else if (i >= 1) {
-        fi = fldr.getFoldersByName(split[i]);
+        fi = fldr.getFoldersByName(arr[i]);
         if (fi.hasNext()) {
           fldr = fi.next();
         } else { 
@@ -1295,10 +1299,10 @@ function findFileAtPath(path) {
         }
     }
   } 
-  return findFileIn(fldr, file);
+  return findFileInFolder(fldr, file);
 } 
 
-Logger.log(findFileAtPath("google-apps-script-cheat-sheet-demo/files/example-file"));
+Logger.log(findFileAtPath("google-apps-script-cheat-sheet-demo/files/example-file")); // example-file
 ```
 
 #### Copy a File to a Folder ####

@@ -12,75 +12,90 @@ var form = FormApp.getActiveForm();
 //   * [Get Destination Sheet](#)
 //   * [Get Last Form Response](#)
 
-function testEverything() {}
+function test() {}
 
 // Forms
 
-// - Form Management
+// -- Array of Objects For Form Items
 
-// -- FLAG --
-// -- Get Form Id
+/**
+ * arrayOfObjetsForFormItems
+ *
+ * @param form
+ * @returns {undefined}
+ */
 
-function formId() {
-  var _id = FormApp.getActiveForm().getId();
-} 
-
-Logger.log(formId());
-
-// -- Array of Form Items
-
-function arrItemsIn(formObj) {
-  var _arr  = [];
-  var items = formObj.getItems()
+function arrayOfObjectsForFormItems(form) {
+  var result = [];
+  var items  = form.getItems();
   for (var i = 0; i < items.length; i++) {
-    var j = {}; 
-    j.index = i;
-    j.title = items[i].getTitle();
-    j.id    = items[i].getId();
-    j.type  = items[i].getType();
-    j.item  = items[i];
-    _arr.push(j);
+    var obj   = {};
+    obj.index = i;
+    obj.title = items[i].getTitle();
+    obj.id    = items[i].getId();
+    obj.type  = items[i].getType();
+    obj.item  = items[i];
+    result.push(obj);
   }
-  return _arr;
+  return result;
 }
 
-var items = arrItemsIn(form);
-// Logger.log(items);
+// Logger.log("arrayOfObjectsForFormItems");
+// var form_aooffi   = FormApp.getActiveForm();
+// var arrObj_aooffi = arrayOfObjectsForFormItems(form);
+// Logger.log(arrObj_aooffi);
 
-// -- Get Form Item by Name
-// note: from source.js
+// Get Form Item by Name
 
-function findObjValIn(arrObj, pQuery, val, pReturn) {
-	for (var i = 0; i < arrObj.length; i++) {
-		var obj = arrObj[i];
-		for (var prop in obj) {
-			if (obj.hasOwnProperty(pQuery) && prop == pQuery && obj[prop] == val) {
-				return obj[pReturn];
-			}
-		}
-	}
+// -- Find Object in Array of Objects
+ 
+/**
+ * Returns the first object in an array of objects with the key value pair.
+ * This can return an object or a value from an object if `ret` is set.
+ *
+ * @param {Object[]} arrObj
+ * @param {string} prop
+ * @param {string} val
+ * @returns {Object}
+ */
+
+function findObjectInArrayOfObjects(arrObj, prop, val) {
+  for (var i = 0; i < arrObj.length; i++) {
+    var obj = arrObj[i];
+    for (var p in obj) {
+      if (obj.hasOwnProperty(prop) && p == prop && obj[p] == val) {
+          return obj;
+      }
+    }
+  }
 }
 
-// var ex_fovi = findObjValIn(items, "title", "Multiple Choice Example", "item");
-// Logger.log(form.getItemById(ex_fovi).getTitle());
+Logger.log("Find Object in Array of Objects");
+var form_gfibn   = FormApp.getActiveForm();
+var arrObj_gfibn = arrayOfObjectsForFormItems(form_gfibn);
+var item_gfibn   = findObjectInArrayOfObjects(arrObj_gfibn, "title", "Event Title", "item");
+Logger.log(item_gfibn);
+Logger.log(item_gfibn.asTextItem());
 
 // -- Set Item Choices
-var choices   = ["1", "2", "3", "4", "5"];
+// var choices   = ["1", "2", "3", "4", "5"];
+
+// https://developers.google.com/apps-script/reference/forms/item
 
 // --- Multiple Choice
 
-var multi = findObjValIn(items, "title", "Multiple Choice Example", "item").asMultipleChoiceItem();
-multi.setChoiceValues(choices);
+// var multi = findObjValIn(items, "title", "Multiple Choice Example", "item").asMultipleChoiceItem();
+// multi.setChoiceValues(choices);
 
 // --- Dropdown
 
-var drop = findObjValIn(items, "title", "Dropdown Example", "item").asListItem();
-drop.setChoiceValues(choices);
+// var drop = findObjValIn(items, "title", "Dropdown Example", "item").asListItem();
+// drop.setChoiceValues(choices);
 
 // --- Checkbox
 
-var chkbox = findObjValIn(items, "title", "Checkbox Example", "item").asCheckboxItem();
-chkbox.setChoiceValues(choices);
+// var chkbox = findObjValIn(items, "title", "Checkbox Example", "item").asCheckboxItem();
+// chkbox.setChoiceValues(choices);
 
 // -- Get Destination Sheet
 
@@ -91,26 +106,27 @@ chkbox.setChoiceValues(choices);
 
 // -- Get Last Form Response
 
-// BUG FIX: form is a global object in this sheet...not actually using argument...
+/**
+ * Returns an object with the values of the last form response.
+ *
+ * @param {Form} form
+ * @returns {Object}
+ */
 
-function lastResponse(formObj) {
-  var all  = formObj.getResponses();
-  var last = all[all.length - 1];
-  var rsps = last.getItemResponses();
-  var j = {};
-  for (var i = 0; i < rsps.length; i++) {
-    var rsp  = rsps[i];
-    var prop = rsp.getItem().getTitle();
-    var val  = rsp.getResponse();
-    if (val !== "") {
-      j[prop] = val;
-    } else {
-      j[prop] = undefined;
-    }
-  }
-  j.email     = last.getRespondentEmail();
-  j.timestamp = last.getTimestamp();
-  return j;
+function lastFormResponse(form) {
+  var allResponses  = form.getResponses();
+  var lastResponse  = allResponses[allResponses.length - 1];
+  var itemResponses = lastResponse.getItemResponses();
+  var result        = {};
+  for (var i = 0; i < itemResponses.length; i++) {
+    var item         = itemResponses[i];
+    var property     = item.getItem().getTitle();
+    var value        = item.getResponse();
+    result[property] = value;
+  } 
+  result.respondent_email = lastResponse.getRespondentEmail();
+  result.timestamp        = lastResponse.getTimestamp();
+  return result;
 }
 
 // update in cheat-sheet?
